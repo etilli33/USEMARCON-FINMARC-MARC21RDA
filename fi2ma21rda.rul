@@ -1,4 +1,4 @@
-﻿MARC 21 Bookwhere-siivous + RDA-kentat
+﻿FINMARC --> MARC 21 (RDA)
 18.1.2017 - Kansalliskirjasto / TV
 
 #define version 317
@@ -45,32 +45,32 @@
                            RegReplace('\\bpbk[^A-Za-z]+|\\bpbk\\.', 'nidottu', 'g'); \
                            RegReplace('\\bhbk[^A-Za-z]+|\\bhbk\\.|\\binb[^A-Za-z]+|\\binb\\.|\\bsid\\.|\\bSID\\.', 'sidottu', 'g'); \
                            RegReplace('\\bverkkojulk\\b|\\bverkkojulk\\.|electronic bk\\.', 'verkkoaineisto', 'g'); \
-                          RegReplace('kuv\\.|KUV\\.', 'kuvitettu', 'g'); \
-                          RegReplace('mv\\.', 'mustavalkoinen', 'g'); \
-                          RegReplace('vär\\.', 'värillinen', 'g'); \
-                          RegReplace('värikuv\\.', 'värikuvitus', 'g'); \
-                          RegReplace('nuott\\.', 'nuotteja', 'g'); \
-                          RegReplace('kuval\\.', 'kuvalehteä', 'g'); \
-                          RegReplace('diagrs\\.', 'diagrams', 'g'); \
-                          RegReplace('incl\\.', 'includes', 'g'); \
-                          RegReplace('fold(\\.)* maps', 'folded maps', 'g'); \
-                          RegReplace('(\\d+) irtol\\.', '\\1 irtolehteä'); \
-                          Replace('kuvas.' By 'kuvasivua'); \
-                          RegReplace('([^0-9]) (taul[.,])', '\\1 taulukkoja', 'g'); \
-                          RegReplace('\\btaul\\.', 'taulukkoja', 'g'); \
-                          RegReplace('hakem\\.|hakem(\$|\\b)', 'hakemisto', 'g'); \
-                          RegReplace('lyh\\. luett\\.', 'lyhenneluettelo', 'g'); \
-                          RegReplace('lähdel\\.|lähdel(\$|\\b)', 'lähdeluettelo', 'g'); \
-                          RegReplace('liitel\\.|liitel(\$|\\b)', 'liiteluettelo', 'g'); \
-                          RegReplace('(\\d*) taul\\.', '\\1 taulukkoa', 'g'); \
-                          RegReplace('(\\d*) karttal\\.', '\\1 karttaliitettä', 'g'); \
-                          RegReplace('\\] kuvas\\.|\\] kuvas(\$|\\b)', '] kuvasivua', 'g'); \
-                          RegReplace('1 liites\\.|1 liites(\$|\\b)', '1 liitesivu', 'g'); \
-                          RegReplace('liites\\.|liites(\$|\\b)', 'liitesivua', 'g'); \
-                          RegReplace('liitt\\.', 'liitteitä', 'g'); \
-                          RegReplace('[Vv]erkkokirja', 'verkkoaineisto', 'g')
-
-// Musiikin esityskokoonpanotermien
+                           RegReplace('kuv\\.|KUV\\.', 'kuvitettu', 'g'); \
+                           RegReplace('IMPR\\b', 'impr', 'g'); \
+                           RegReplace('mv\\.', 'mustavalkoinen', 'g'); \
+                           RegReplace('vär\\.', 'värillinen', 'g'); \
+                           RegReplace('värikuv\\.', 'värikuvitus', 'g'); \
+                           RegReplace('nuott\\.', 'nuotteja', 'g'); \
+                           RegReplace('kuval\\.', 'kuvalehteä', 'g'); \
+                           RegReplace('\\bCM', 'cm', 'g'); \
+                           RegReplace('diagrs\\.', 'diagrams', 'g'); \
+                           RegReplace('incl\\.', 'includes', 'g'); \
+                           RegReplace('fold(\\.)* maps', 'folded maps', 'g'); \
+                           RegReplace('(\\d+) irtol\\.', '\\1 irtolehteä'); \
+                           Replace('kuvas.' By 'kuvasivua'); \
+                           RegReplace('([^0-9]) (taul[.,])', '\\1 taulukkoja', 'g'); \
+                           RegReplace('\\btaul\\.', 'taulukkoja', 'g'); \
+                           RegReplace('hakem\\.|hakem(\$|\\b)', 'hakemisto', 'g'); \
+                           RegReplace('lyh\\. luett\\.', 'lyhenneluettelo', 'g'); \
+                           RegReplace('lähdel\\.|lähdel(\$|\\b)', 'lähdeluettelo', 'g'); \
+                           RegReplace('liitel\\.|liitel(\$|\\b)', 'liiteluettelo', 'g'); \
+                           RegReplace('(\\d*) taul\\.', '\\1 taulukkoa', 'g'); \
+                           RegReplace('(\\d*) karttal\\.', '\\1 karttaliitettä', 'g'); \
+                           RegReplace('\\] kuvas\\.|\\] kuvas(\$|\\b)', '] kuvasivua', 'g'); \
+                           RegReplace('1 liites\\.|1 liites(\$|\\b)', '1 liitesivu', 'g'); \
+                           RegReplace('liites\\.|liites(\$|\\b)', 'liitesivua', 'g'); \
+                           RegReplace('liitt\\.', 'liitteitä', 'g'); \
+                           RegReplace('[Vv]erkkokirja', 'verkkoaineisto', 'g')
 
 000/1-5     | 000/1-5     | S
 000/6/      | 000/6/      | 'n'
@@ -89,8 +89,6 @@
 008/16-18/ | 008/16-18/ | Table ('008-15-maakoodit.tbl')
 008/36-38/ | 008/36-38/ | Table ('008-35-kielikoodit.tbl')
 008/40/ | 008/40/ | 'c'
-
-// 336- ja 337-kentät luodaan kiinteämittaisten kenttien ja yleismääreiden perusteella vain jos lähtötietueessa ei ole niitä. Jos on, ne käännetään alkuperäisistä.
 
 // TEKSTIAINEISTO JA TEKSTIKÄSIKIRJOITUS
 
@@ -151,7 +149,7 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 #if (@000/7/ = 'e' Or @000/7/ = 'f' And Not Exists(@336))
 007/1-2		| 007/1-2/	  | S
 
-007/1/		      | <C36$a          | If (S = 'a' and @007/2/ != 'q' and @008/30/ = 'f') Then 'kartografinen taktiili kuva'
+007/1/          | <C36$a          | If (S = 'a' and @007/2/ != 'q' and @008/30/ = 'f') Then 'kartografinen taktiili kuva'
 
 008/26/         | 008/26/         | S
 008/26/         | <C36$a          | If ((S != 'd') And (C36$a != 'kartografinen taktiili kuva')) Then 'kartografinen kuva' Else 'kartografinen kolmiulotteinen muoto'
@@ -358,16 +356,18 @@ G37$a           | 337(newest)$2   | 'rdamedia'
 
 040   | 040    | Sort('abed')
 
-#if (@008/36-38/ != '   ' and not Exists(@041))
+#if ( (@008/36-38/ != '   ') And (@008/36-38/ != '|||') And Not (Exists(@041)) )
 008        | 041I1  | '0'
 008        | 041I2  | ' '
-008/36-38/ | 041$a  | Table ('008-35-kielikoodit.tbl')
+008/36-38/ | 041$a  | If (InTable('008-35-kielikoodit.tbl') Then Table ('008-35-kielikoodit.tbl')
 #endif
 
+#if (Exists(@041))
 041I1 | 041I1  | S
 041I2 | 041I2  | If (I2='9') Then ' ' Else S
 041$a | 041$a(no) | Sto(0); To(3); Table ('008-35-kielikoodit.tbl'); Redo; Mem(0); From(4)
 041$? | 041$?  | S
+#endif
 
 042I1 | <DELI1 | S
 042I2 | <DELI2 | S
@@ -442,13 +442,13 @@ G37$a           | 337(newest)$2   | 'rdamedia'
 100$e | 100$e  | Table ('Funktiot.tbl')
 100$? | 100$?  | S;
                  Replace ('[from old catalog]' By '');
-                 Delete (';' ,At Ending)
+                 Delete (';', At Ending)
 	 
 110I1 | 110I1  | S
 110I2 | 110I2  | S
 110$a | 110$a  | If Not Exists ($c) Or Not Exists ($d) Then Replace (',' By '.', At Ending) Else S; Delete (' [from old catalog]', At Ending) ; Delete (' joint author', At Ending); Delete (' joint auth.', At Ending)
 110$b | 110$b  | S; Delete (';', At Ending)				 
-110$e | 110$e  | Table ('Funktiot.tbl')
+110$e | 110$e  | Table ('Funktiotermit.tbl')
 
 245I1 | 245I1  | If (Exists(@100) Or Exists(@110) Or Exists(@111) Or Exists(@130)) Then '1' Else '0'
 245I2 | 245I2  | S
@@ -495,37 +495,25 @@ K47 | 247 | S
 249I2 | <DELI2 | S
 249   | <DEL   | S
 
-260I1 | 264I1 | ' '
-260I2 | 264I2 | '1'
-260$a | 264$a | S; RegReplace('S\\.l\\.', 'Kustannuspaikka tuntematon'); \
-                   RegReplace('\\[s\\.l\\.\\]', '[kustannuspaikka tuntematon]'); \
-                   RegReplace('\\[[Ss]\\. l\\.\\]', '[kustannuspaikka tuntematon]'); \
-                   RegReplace('s\\.n\\.', 'kustantaja tuntematon')
-260$b | 264$b | S; RegReplace('\\[s\\.n\\.\\]', '[kustantaja tuntematon]')
-260$c | 264$c | RegReplace('\\[s\\.a\\.\\]', '[julkaisuaika tuntematon]'); \
-                If (RegFind(S, 'cop|©|℗|[Cc]|^p') >= 0) And (RegFind(S, '\\d{4}') >= 0) '[' + RegMatch(0) + ']' \
-                Else S
-260$? | 264$? | S
+250I1 | 250I1 | S
+250I2 | 250I2 | S
+250   | 250   | KAANNOKSET
 
-#if (RegFind(@260$c, 'cop|©|[Cc]') >= 0) And (RegFind(@260$c, '\\d{4}') >= 0)
-260I1 | <X64I1 | ' '
-260I2 | <X64I2 | '4'
-260$c | <X64$c | '©' + RegMatch(0);
-X64I1 | 264I1  | S
-X64I2 | 264I2  | S
-// Kenttään 264$c viedään myös mahdolliset hakasulkeet
-X64$c | 264$c  | If (RegFind(260$c, '\\[') >= 0) '[' + S + ']' Else S
-X64$? | 264$?  | S
+#if (Not Exists(@773))
+260I1 | 260I1 | S
+260I2 | 260I2 | S
+260$a | 260$a | S; RegReplace('S\\.\\s*[Ll]\\.', 'Kustannuspaikka tuntematon');
+                   RegReplace('[Ss]\\.\\s*[Ll]\\.', 'kustannuspaikka tuntematon');
+                   RegReplace('[Ss]\\.\\s*[Nn]\\.', 'kustantaja tuntematon')
+260$b | 260$b | S; RegReplace('[Ss]\\.\\s*[Nn]\\.', 'kustantaja tuntematon')
+260$c | 260$c | S; RegReplace('[Ss]\\.\\s*[Aa]\\.*', 'julkaisuaika tuntematon')
+260$? | 260$? | S
 #endif
 
-#if (RegFind(@260$c, '^p|℗') >= 0) And (RegFind(@260$c, '\\d{4}') >= 0)
-260I1 | <X64I1 | ' '
-260I2 | <X64I2 | '4'
-260$c | <X64$c | '℗ ' + RegMatch(0);
-X64I1 | 264I1  | S
-X64I2 | 264I2  | S
-X64$c | 264$c  | If (RegFind(260$c, '\\[') >= 0) '[' + S + ']' Else S
-X64$? | 264$?  | S
+#if (Exists(@773))
+260I1 | 260I1 | S
+260I2 | 260I2 | S
+260   | 260   | S
 #endif
 
 261I1 | <DELI1 | S
@@ -982,12 +970,12 @@ C05   | 505(newest)   | S; If (RegFind('[\\.\\)!]\$') < 0) S + '.'
 
 700I1 | 700I1  | S
 700I2 | 700I2  | S
-700$e | 700$e  | Table ('Funktiot.tbl')
+700$e | 700$e  | Table ('Funktiotermit.tbl')
 700$? | 700$?   | S;
 
 710I1 | 710I1  | S
 710I2 | 710I2  | S
-710$e | 710$e  | Table ('Funktiot.tbl')
+710$e | 710$e  | Table ('Funktiotermit.tbl')
 710$? | 710$?  | S
 
 740I1            | 740I1           | S
@@ -1035,9 +1023,7 @@ H40 | 740 | S //;
 760$6            | <L60$6          | S
 760$7            | <L60$7          | S
 760$8            | <L60$8          | S
-L60 | 760 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
+L60 | 760 | S
 
 761I1 | <DELI1 | S
 761I2 | <DELI2 | S
@@ -1064,9 +1050,7 @@ L60 | 760 | S //;
 762$6            | <M62$6          | S
 762$7            | <M62$7          | S
 762$8            | <M62$8          | S
-M62 | 762 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+M62 | 762 | S
 
 765I1            | 765I1           | S
 765I2            | 765I2           | S
@@ -1093,9 +1077,7 @@ M62 | 762 | S //;
 765$6            | <N65$6          | S
 765$7            | <N65$7          | S
 765$8            | <N65$8          | S
-N65 | 765 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+N65 | 765 | S
 
 767I1            | 767I1           | S
 767I2            | 767I2           | S
@@ -1122,9 +1104,7 @@ N65 | 765 | S //;
 767$6            | <P67$6          | S
 767$7            | <P67$7          | S
 767$8            | <P67$8          | S
-P67 | 767 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+P67 | 767 | S
 
 770I1            | 770I1           | S
 770I2            | 770I2           | S
@@ -1151,9 +1131,7 @@ P67 | 767 | S //;
 770$6            | <Q70$6          | S
 770$7            | <Q70$7          | S
 770$8            | <Q70$8          | S
-Q70 | 770 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+Q70 | 770 | S
 
 772I1            | 772I1           | S
 772I2            | 772I2           | S
@@ -1180,10 +1158,7 @@ Q70 | 770 | S //;
 772$6            | <R72$6          | S
 772$7            | <R72$7          | S
 772$8            | <R72$8          | S
-R72 | 772 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
-
+R72 | 772 | S
 
 773I1            | 773I1           | S
 773I2            | 773I2           | S
@@ -1212,10 +1187,7 @@ R72 | 772 | S //;
 773$6            | <J73$6          | S
 773$7            | <J73$7          | S
 773$8            | <J73$8          | S
-J73 | 773 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
-
+J73 | 773 | S
 
 774I1            | 774I1           | S
 774I2            | 774I2           | S
@@ -1242,9 +1214,7 @@ J73 | 773 | S //;
 774$6            | <S74$6          | S
 774$7            | <S74$7          | S
 774$8            | <S74$8          | S
-S74 | 774 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+S74 | 774 | S
 
 775I1            | 775I1           | S
 775I2            | 775I2           | S
@@ -1273,9 +1243,7 @@ S74 | 774 | S //;
 775$6            | <T75$6          | S
 775$7            | <T75$7          | S
 775$8            | <T75$8          | S
-T75 | 775 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
+T75 | 775 | S
 
 776I1            | 776I1           | S
 776I2            | 776I2           | S
@@ -1302,11 +1270,7 @@ T75 | 775 | S //;
 776$6            | <U76$6          | S
 776$7            | <U76$7          | S
 776$8            | <U76$8          | S
-U76 | 776 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on virheellinen
-
-
+U76 | 776 | S
 
 777I1            | 777I1           | S
 777I2            | 777I2           | S
@@ -1330,11 +1294,7 @@ U76 | 776 | S //;
 777$6            | <V77$6          | S
 777$7            | <V77$7          | S
 777$8            | <V77$8          | S
-V77 | 777 | S//;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
-
-
+V77 | 777 | S
 
 780I1            | 780I1           | S
 780I2            | 780I2           | S
@@ -1361,10 +1321,7 @@ V77 | 777 | S//;
 780$6            | <A80$6          | S
 780$7            | <A80$7          | S
 780$8            | <A80$8          | S
-A80 | 780 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
-
+A80 | 780 | S
 
 785I1            | 785I1           | S
 785I2            | 785I2           | S
@@ -1391,9 +1348,7 @@ A80 | 780 | S //;
 785$6            | <B85$6          | S
 785$7            | <B85$7          | S
 785$8            | <B85$8          | S
-B85 | 785 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
+B85 | 785 | S
 
 786I1            | 786I1           | S
 786I2            | 786I2           | S
@@ -1423,9 +1378,7 @@ B85 | 785 | S //;
 786$6            | <C86$6          | S
 786$7            | <C86$7          | S
 786$8            | <C86$8          | S
-C86 | 786 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
+C86 | 786 | S
 
 787I1            | 787I1           | S
 787I2            | 787I2           | S
@@ -1452,9 +1405,7 @@ C86 | 786 | S //;
 787$6            | <E87$6          | S
 787$7            | <E87$7          | S
 787$8            | <E87$8          | S
-E87 | 787 | S //;
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1'); // Säilyttää välimerkit
-            //RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*', '') // Jos välimerkki puuttuu tai on on virheellinen
+E87 | 787 | S
 				 
 790I1 | <DELI1 | S
 790I2 | <DELI2 | S

@@ -1,94 +1,94 @@
-Funktiotermit.tbl -- BookWhere-konversio >> tekijän funktiotermit englannista suomeen (säännölliset lausekkeet)
+Funktiotermit.tbl -- Funktiotermien käännökset ja lyhenteiden avaukset
+File generated: 2017-01-18 12:55:50
 
-'animator'|'animaattori'
-'performer'|'esittäjä'
-'conductor'|'johtaja'
-'engraver'|'kaivertaja'
-'narrator'|'kertoja'
-'author'|'kirjoittaja'
-'compiler'|'kokoaja'
-'choreographer'|'koreografi'
-'director of photography'|'kuvaaja'
-'illustrator'|'kuvittaja'
-'screenwriter'|'käsikirjoittaja'
-'translator'|'kääntäjä'
-'art director'|'lavastaja'
-'editor of moving image'|'leikkaaja'
-'actor'|'näyttelijä'
-'director'|'ohjaaja'
-'teacher'|'opettaja'
-'draftsman'|'piirtäjä'
-'lyricist'|'sanoittaja'
-'arranger'|'sovittaja'
-'designer'|'suunnittelija'
-'composer'|'säveltäjä'
-'artist'|'taiteilija'
-'dancer'|'tanssija'
-'editor'|'toimittaja'
-'producer'|'tuottaja'
-'photographer'|'valokuvaaja'
-'recordist'|'äänittäjä'
-'anim\\.'|'animaattori'
-'dramat\\.'|'dramaturgi'
-'esitt\\.'|'esittäjä'
-'graaf\\.'|'graafikko'
-'joht\\.'|'johtaja'
-'kaivert\\.'|'kaivertaja'
-'kert\\.'|'kertoja'
-'kirj\\.'|'kirjoittaja'
-'kok\\.'|'kokoaja'
-'koreogr\\.'|'koreografi'
-'kuv\\.'|'kuvaaja'
-'ill\\.'|'kuvittaja'
-'käsik\\.'|'käsikirjoittaja'
-'övers\\.'|'kääntäjä'
-'lav\\.'|'lavastaja'
-'leikk\\.'|'leikkaaja'
-'miks\\.'|'miksaaja'
-'näytt\\.'|'näyttelijä'
-'reg\\.'|'ohjaaja'
-'opett\\.'|'opettaja'
-'piirt\\.'|'piirtäjä'
-'san\\.'|'sanoittaja'
-'arr\\.'|'sovittaja'
-'suunn\\.'|'suunnittelija'
-'säv\\.',|'säveltäjä'
-'tons\\.'|'säveltäjä'
-'kuvatait\\.'|'taiteilija'
-'tanssi'|'tanssija'
-'red\\.'|'toimittaja'
-'tuott\\.'|'tuottaja'
-'valok\\.'|'valokuvaaja'
-'äänitt\\.'|'äänittäjä'
-'animatör'|'animaattori'
-'dramaturg'|'dramaturgi'
-'artist'|'esittäjä'
-'grafiker'|'graafikko'
-'dirigent'|'johtaja'
-'gravör'|'kaivertaja'
-'berättare'|'kertoja'
-'författare'|'kirjoittaja'
-'sammanställare'|'kokoaja'
-'koreograf'|'koreografi'
-'illustratör'|'kuvittaja'
-'manusförfattare'|'käsikirjoittaja'
-'översättare'|'kääntäjä'
-'scenograf'|'lavastaja'
-'filmklippare'|'leikkaaja'
-'mixer'|'miksaaja'
-'skådespelare'|'näyttelijä'
-'regissör'|'ohjaaja'
-'lärare'|'opettaja'
-'tecknare'|'piirtäjä'
-'sångtextförfattare'|'sanoittaja'
-'arrangör'|'sovittaja'
-'formgivare'|'suunnittelija'
-'kompositör'|'säveltäjä'
-'konstnär'|'taiteilija'
-'dansare'|'tanssija'
-'redaktör'|'toimittaja'
-'producent'|'tuottaja'
-'fotograf'|'valokuvaaja'
-'ljudtekniker'|'äänittäjä'
-
-\\b#DEFAULT | COPY
+a n i m a t o r	|	a n i m a a t t o r i
+p e r f o r m e r	|	e s i t t 0xc3 0xa4 j 0xc3 0xa4
+c o n d u c t o r	|	j o h t a j a
+e n g r a v e r	|	k a i v e r t a j a
+n a r r a t o r	|	k e r t o j a
+a u t h o r	|	k i r j o i t t a j a
+c o m p i l e r	|	k o k o a j a
+c h o r e o g r a p h e r	|	k o r e o g r a f i
+d i r e c t o r 0x20 o f 0x20 p h o t o g r a p h y	|	k u v a a j a
+i l l u s t r a t o r	|	k u v i t t a j a
+s c r e e n w r i t e r	|	k 0xc3 0xa4 s i k i r j o i t t a j a
+t r a n s l a t o r	|	k 0xc3 0xa4 0xc3 0xa4 n t 0xc3 0xa4 j 0xc3 0xa4
+a r t 0x20 d i r e c t o r	|	l a v a s t a j a
+e d i t o r 0x20 o f 0x20 m o v i n g 0x20 i m a g e	|	l e i k k a a j a
+a c t o r	|	n 0xc3 0xa4 y t t e l i j 0xc3 0xa4
+d i r e c t o r	|	o h j a a j a
+t e a c h e r	|	o p e t t a j a
+d r a f t s m a n	|	p i i r t 0xc3 0xa4 j 0xc3 0xa4
+l y r i c i s t	|	s a n o i t t a j a
+a r r a n g e r	|	s o v i t t a j a
+d e s i g n e r	|	s u u n n i t t e l i j a
+c o m p o s e r	|	s 0xc3 0xa4 v e l t 0xc3 0xa4 j 0xc3 0xa4
+a r t i s t	|	t a i t e i l i j a
+d a n c e r	|	t a n s s i j a
+e d i t o r	|	t o i m i t t a j a
+p r o d u c e r	|	t u o t t a j a
+p h o t o g r a p h e r	|	v a l o k u v a a j a
+r e c o r d i s t	|	0xc3 0xa4 0xc3 0xa4 n i t t 0xc3 0xa4 j 0xc3 0xa4
+a n i m .	|	a n i m a a t t o r i
+d r a m a t .	|	d r a m a t u r g i
+e s i t t .	|	e s i t t 0xc3 0xa4 j 0xc3 0xa4
+g r a a f .	|	g r a a f i k k o
+j o h t .	|	j o h t a j a
+k a i v e r t .	|	k a i v e r t a j a
+k e r t .	|	k e r t o j a
+k i r j .	|	k i r j o i t t a j a
+k o k .	|	k o k o a j a
+k o r e o g r .	|	k o r e o g r a f i
+k u v .	|	k u v a a j a
+i l l .	|	k u v i t t a j a
+k 0xc3 0xa4 s i k .	|	k 0xc3 0xa4 s i k i r j o i t t a j a
+0xc3 0xb6 v e r s .	|	k 0xc3 0xa4 0xc3 0xa4 n t 0xc3 0xa4 j 0xc3 0xa4
+l a v .	|	l a v a s t a j a
+l e i k k .	|	l e i k k a a j a
+m i k s .	|	m i k s a a j a
+n 0xc3 0xa4 y t t .	|	n 0xc3 0xa4 y t t e l i j 0xc3 0xa4
+r e g .	|	o h j a a j a
+o p e t t .	|	o p e t t a j a
+p i i r t .	|	p i i r t 0xc3 0xa4 j 0xc3 0xa4
+s a n .	|	s a n o i t t a j a
+a r r .	|	s o v i t t a j a
+s u u n n .	|	s u u n n i t t e l i j a
+S 0xc3 0xa4 v .	|	s 0xc3 0xa4 v e l t 0xc3 0xa4 j 0xc3 0xa4
+t o n s .	|	s 0xc3 0xa4 v e l t 0xc3 0xa4 j 0xc3 0xa4
+k u v a t a i t .	|	t a i t e i l i j a
+t a n s s i	|	t a n s s i j a
+r e d .	|	t o i m i t t a j a
+t u o t t .	|	t u o t t a j a
+v a l o k .	|	v a l o k u v a a j a
+0xc3 0xa4 0xc3 0xa4 n i t t .	|	0xc3 0xa4 0xc3 0xa4 n i t t 0xc3 0xa4 j 0xc3 0xa4
+a n i m a t 0xc3 0xb6 r	|	a n i m a a t t o r i
+d r a m a t u r g	|	d r a m a t u r g i
+a r t i s t	|	e s i t t 0xc3 0xa4 j 0xc3 0xa4
+g r a f i k e r	|	g r a a f i k k o
+d i r i g e n t	|	j o h t a j a
+g r a v 0xc3 0xb6 r	|	k a i v e r t a j a
+b e r 0xc3 0xa4 t t a r e	|	k e r t o j a
+f 0xc3 0xb6 r f a t t a r e	|	k i r j o i t t a j a
+s a m m a n s t 0xc3 0xa4 l l a r e	|	k o k o a j a
+k o r e o g r a f	|	k o r e o g r a f i
+i l l u s t r a t 0xc3 0xb6 r	|	k u v i t t a j a
+m a n u s f 0xc3 0xb6 r f a t t a r e	|	k 0xc3 0xa4 s i k i r j o i t t a j a
+0xc3 0xb6 v e r s 0xc3 0xa4 t t a r e	|	k 0xc3 0xa4 0xc3 0xa4 n t 0xc3 0xa4 j 0xc3 0xa4
+s c e n o g r a f	|	l a v a s t a j a
+f i l m k l i p p a r e	|	l e i k k a a j a
+m i x e r	|	m i k s a a j a
+s k 0xc3 0xa5 d e s p e l a r e	|	n 0xc3 0xa4 y t t e l i j 0xc3 0xa4
+r e g i s s 0xc3 0xb6 r	|	o h j a a j a
+l 0xc3 0xa4 r a r e	|	o p e t t a j a
+t e c k n a r e	|	p i i r t 0xc3 0xa4 j 0xc3 0xa4
+s 0xc3 0xa5 n g t e x t f 0xc3 0xb6 r f a t t a r e	|	s a n o i t t a j a
+a r r a n g 0xc3 0xb6 r	|	s o v i t t a j a
+f o r m g i v a r e	|	s u u n n i t t e l i j a
+k o m p o s i t 0xc3 0xb6 r	|	s 0xc3 0xa4 v e l t 0xc3 0xa4 j 0xc3 0xa4
+k o n s t n 0xc3 0xa4 r	|	t a i t e i l i j a
+d a n s a r e	|	t a n s s i j a
+r e d a k t 0xc3 0xb6 r	|	t o i m i t t a j a
+p r o d u c e n t	|	t u o t t a j a
+f o t o g r a f	|	v a l o k u v a a j a
+l j u d t e k n i k e r	|	0xc3 0xa4 0xc3 0xa4 n i t t 0xc3 0xa4 j 0xc3 0xa4
+#DEFAULT	|	COPY
