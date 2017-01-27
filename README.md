@@ -1,17 +1,25 @@
-# FINMARC --> MARC 21 (ISBD)
+# USEMARCON-FINMARC-MARC21RDA
 
-KUVAUS
+USEMARCON-ohjelmalla käytettävä konversiosääntö FINMARC-formaatin mukaisten bibliografisten tietueiden muuntamiseksi MARC 21 (RDA) -muotoon. Koska RDA-kuvailuohjeiden mukaista dataa ei voida tuottaa koneellisesti, konversio tuottaa tarkalleen ottaen ns. *hybriditietueita*, joissa on sekä ISBD- että RDA-kuvailuohjeiden piirteitä. Tästä aiheesta lisätietoa löytyy Kiti Vilkki-Erikssonin esityksestä [Melinda-talonmiehen tuokiossa 21.4.2016](https://www.kiwi.fi/display/melinda/Tapahtumat+ja+koulutukset#Tapahtumatjakoulutukset-tuokio5).
 
-USEMARCON-konversiosääntö FINMARC-muotoisten tietueiden muuntamiseen MARC 21 -formaattiin ISBD-kuvailusääntöjen mukaisesti.
 
-Lisätietoja USEMARCON-ohjelmasta: http://www.nationallibrary.fi/libraries/format/usemarcon.html.
+Kehitys
+------
+Konversiosääntö on toistaiseksi keskeneräinen eikä sitä tule vielä käyttää tuotantotietokantojen käsittelyyn.
 
-KÄYTTÖ
+Käyttö
+-----
 
-Kopioi konversiopaketti päätteellesi esimerkiksi "Download ZIP" -painikkeesta. Pura paketti haluamaasi sijaintiin esimerkiksi C:\Usemarcon\ -hakemiston alle. Varsinainen USEMARCON-ohjelmalle syötteenä annettava konversiotiedosto on fi2maISBD.ini.
+Konversio ajetaan USEMARCON-ohjelmalla. Ohjelman voit ladata osoitteesta https://www.kiwi.fi/display/Marc21/USEMARCON. Lähdekoodi on saatavissa USEMARCONin GitHub-sivuilta: https://github.com/NatLibFi/usemarcon.
 
-=================
+Kopioi konversiopaketti päätteellesi esimerkiksi "Download ZIP" -painikkeesta. Pura paketti haluamaasi sijaintiin esimerkiksi C:\Usemarcon\ -hakemiston alle. USEMARCONilla käytettävät varsinaiset konversiotiedostot on fi2maRDA.ini.
 
-DESCRIPTION
+Palaute
+--
+marc-posti (at) helsinki.fi
 
-A USEMARCON rule for converting bibliographic records from FINMARC to MARC 21 -format. The output records conform to the ISBD cataloguing rules.
+======
+
+Description
+--
+A USEMARCON rule for converting bibliographic records from FINMARC to MARC 21 (RDA).
