@@ -5,7 +5,7 @@ USEMARCON-ohjelmalla käytettävä konversiosääntö FINMARC-formaatin mukaiste
 
 Kehitys
 ------
-Konversiosääntö on toistaiseksi keskeneräinen eikä sitä tule vielä käyttää tuotantotietokantojen käsittelyyn.
+Tarjottu versio on konversion ensimmäinen tuotantoversio. Konversiota voi testata vapaasti, palaute on tervetullutta.
 
 Käyttö
 -----
