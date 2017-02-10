@@ -1,6 +1,210 @@
-FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
-27.1.2017 / KK/TV
+FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
+8.2.2017 / Kansalliskirjasto (TV)
 
+#define version 317
+
+#define macro KAANNOKSET | RegReplace('diagrs\\.', 'diagrams', 'g'); \
+                           RegReplace('incl\\.', 'includes', 'g'); \
+                           RegReplace('fold(\\.)* maps', 'folded maps', 'g'); \
+                           RegReplace('online resource', 'verkkoaineisto', 'g'); \
+                           RegReplace('approximately', 'noin', 'g'); \
+                           RegReplace('\\bmin\\.|\\bmin\\b|minutes', 'minuuttia', 'g'); \
+                           RegReplace('unnumbered', 'numeroimatonta', 'g'); \
+                           RegReplace('color illustrations\\b|col\\. ill\\.', 'värikuvitus', 'g'); \
+                           RegReplace('chiefly color illustrations', 'pääosin värikuvitettu', 'g'); \
+                           RegReplace('ill\\b|illus(\\.|trated)|illustrations', 'kuvitettu', 'g'); \
+                           RegReplace('black and white', 'mustavalkoinen', 'g'); \
+                           RegReplace('\\s\\(some col\\.\\)', '', 'g'); \
+                           RegReplace('\\bcharts\\b', 'kaavioita', 'g'); \
+                           RegReplace('\\bports\\.|\\bportraits', 'muotokuvia', 'g'); \
+                           RegReplace('illustration\\b', 'kuvitus', 'g'); \
+                           RegReplace('p\\. of plates|leaves of plates', 'kuvalehteä', 'g'); \
+                           RegReplace('1 v\\.', '1 nide', 'g'); \
+                           RegReplace('insert\\b', 'liite', 'g'); \
+                           RegReplace('inserts', 'liitteitä', 'g'); \
+                           RegReplace('videodiscs', 'videolevyä', 'g'); \
+                           RegReplace('videodisc', 'videolevy', 'g'); \
+                           RegReplace('(sound|audio) discs', 'äänilevyä', 'g'); \
+                           RegReplace('sound disc', 'äänilevy', 'g'); \
+                           RegReplace('ca\\.', 'noin', 'g'); \
+                           RegReplace('digital\\b', 'digitaalinen', 'g'); \
+                           RegReplace('analog\\b', 'analoginen', 'g'); \
+                           RegReplace('folded sheet', 'taitelehti', 'g'); \
+                           RegReplace('map\\b', 'kartta', 'g'); \
+                           RegReplace('1 hr\\.', '1 tunti', 'g'); \
+                           RegReplace('unpaged', 'ei sivunumerointia', 'g'); \
+                           RegReplace('\\bhr\\.', 'tuntia', 'g'); \
+                           RegReplace('sound cassettes', 'äänikasettia', 'g'); \
+                           RegReplace('maps|\\bkartt\\.|\\bKARTT\\.', 'karttoja', 'g'); \
+                           RegReplace('sd\\., col\\.', 'äänellinen, värillinen', 'g'); \
+                           RegReplace('\\s\\(chiefly color\\)|\\s\\(chiefly col\\.\\)', '', 'g'); \
+                           RegReplace('chiefly color\\b|chiefly col\\.', 'pääosin värillisiä', 'g'); \
+                           RegReplace('\\b[Ss]\\.|pages|\\bp\\.|\\bp\\b', 'sivua', 'g'); \
+                           RegReplace('chiefly', 'pääosin', 'g'); \
+                           RegReplace('\\bnid\\.|\\bnid[^A-Za-z]+|\\bhft[^A-Za-z]+|\\bhft\\.|\\bNID\\.|\\bnid\\.', 'nidottu', 'g'); \
+                           RegReplace('\\bpbk[^A-Za-z]+|\\bpbk\\.', 'nidottu', 'g'); \
+                           RegReplace('\\bhbk[^A-Za-z]+|\\bhbk\\.|\\binb[^A-Za-z]+|\\binb\\.|\\bsid\\.|\\bSID\\.', 'sidottu', 'g'); \
+                           RegReplace('\\bverkkojulk\\b|\\bverkkojulk\\.|electronic bk\\.', 'verkkoaineisto', 'g'); \
+                           RegReplace('kuv\\.|KUV\\.', 'kuvitettu', 'g'); \
+                           RegReplace('IMPR\\b', 'impr', 'g'); \
+                           RegReplace('mv\\.', 'mustavalkoinen', 'g'); \
+                           RegReplace('vär\\.', 'värillinen', 'g'); \
+                           RegReplace('värikuv\\.', 'värikuvitus', 'g'); \
+                           RegReplace('nuott\\.', 'nuotteja', 'g'); \
+                           RegReplace('kuval\\.', 'kuvalehteä', 'g'); \
+                           RegReplace('\\bCM', 'cm', 'g'); \
+                           RegReplace('diagrs\\.', 'diagrams', 'g'); \
+                           RegReplace('incl\\.', 'includes', 'g'); \
+                           RegReplace('fold(\\.)* maps', 'folded maps', 'g'); \
+                           RegReplace('(\\d+) irtol\\.', '\\1 irtolehteä'); \
+                           Replace('kuvas.' By 'kuvasivua'); \
+                           RegReplace('([^0-9]) (taul[.,])', '\\1 taulukkoja', 'g'); \
+                           RegReplace('\\btaul\\.', 'taulukkoja', 'g'); \
+                           RegReplace('hakem\\.|hakem(\$|\\b)', 'hakemisto', 'g'); \
+                           RegReplace('lyh\\. luett\\.', 'lyhenneluettelo', 'g'); \
+                           RegReplace('lähdel\\.|lähdel(\$|\\b)', 'lähdeluettelo', 'g'); \
+                           RegReplace('liitel\\.|liitel(\$|\\b)', 'liiteluettelo', 'g'); \
+                           RegReplace('(\\d*) taul\\.', '\\1 taulukkoa', 'g'); \
+                           RegReplace('(\\d*) karttal\\.', '\\1 karttaliitettä', 'g'); \
+                           RegReplace('\\] kuvas\\.|\\] kuvas(\$|\\b)', '] kuvasivua', 'g'); \
+                           RegReplace('1 liites\\.|1 liites(\$|\\b)', '1 liitesivu', 'g'); \
+                           RegReplace('liites\\.|liites(\$|\\b)', 'liitesivua', 'g'); \
+                           RegReplace('liitt\\.', 'liitteitä', 'g'); \
+                           RegReplace('[Vv]erkkokirja', 'verkkoaineisto', 'g')
+
+
+#define macro 300AE | RegReplace('\\b[Nn]\\.', 'noin', 'g'); \
+                      RegReplace('(\\d+) s\\.', '\\1 sivua', 'g'); \
+                      RegReplace('(\\[\\d+\\]) s\\.', '\\1 sivua', 'g'); \
+                      RegReplace('(\\d+) S\\.', '\\1 sivua', 'g'); \
+                      RegReplace('(\\d+) bl\\.', '\\1 blad', 'g'); \
+                      RegReplace('\\bs\\. (\\d+-\\d+)', 'sivut \\1', 'g'); \
+                      RegReplace('S\\. (\\d+-\\d+)', 'sivut \\1', 'g'); \
+                      RegReplace('1 vol\\.', '\\1 nide', 'g'); \
+                      RegReplace('(\\d+) vol\\.', '\\1 nidettä', 'g'); \
+                      RegReplace('\\bsek([^A-Z-a-z])', 's\\1', 'g'); \
+                      RegReplace('ss\\.', 'sivut', 'g'); \
+                      RegReplace('\\bkuv\\.', 'kuvitettu', 'g'); \
+                      RegReplace('verkkojulkaisu', 'verkkoaineisto', 'g'); \
+                      RegReplace('Verkkojulkaisu', 'Verkkoaineisto', 'g')
+                      
+#define macro 300BE | RegReplace('kartt\\.', 'karttoja', 'g'); \
+                      RegReplace('kuv\\.', 'kuvitettu', 'g'); \
+                      RegReplace('mv\\.', 'mustavalkoinen', 'g'); \
+                      RegReplace('vär\\.', 'värillinen', 'g'); \
+                      RegReplace('värikuv\\.', 'värikuvitus', 'g'); \
+                      RegReplace('nuott\\.', 'nuotteja', 'g'); \
+                      RegReplace('kuval\\.', 'kuvalehteä', 'g'); \
+                      RegReplace('diagrs\\.', 'diagrams', 'g'); \
+                      RegReplace('incl\\.', 'includes', 'g'); \
+                      RegReplace('fold(\\.)* maps', 'folded maps', 'g'); \
+                      RegReplace('(\\d+) irtol\\.', '\\1 irtolehteä'); \
+                      Replace('kuvas.' By 'kuvasivua'); \
+                      RegReplace('([^0-9]) (taul[.,])', '\\1 taulukkoja', 'g'); \
+                      RegReplace('\\btaul\\.', 'taulukkoja', 'g'); \
+                      RegReplace('hakem\\.|hakem(\$|\\b)', 'hakemisto', 'g'); \
+                      RegReplace('lyh\\. luett\\.', 'lyhenneluettelo', 'g'); \
+                      RegReplace('lähdel\\.|lähdel(\$|\\b)', 'lähdeluettelo', 'g'); \
+                      RegReplace('liitel\\.|liitel(\$|\\b)', 'liiteluettelo', 'g'); \
+                      RegReplace('(\\d*) taul\\.', '\\1 taulukkoa', 'g'); \
+                      RegReplace('(\\d*) karttal\\.', '\\1 karttaliitettä', 'g'); \
+                      RegReplace('\\] kuvas\\.|\\] kuvas(\$|\\b)', '] kuvasivua', 'g'); \
+                      RegReplace('1 liites\\.|1 liites(\$|\\b)', '1 liitesivu', 'g'); \
+                      RegReplace('liites\\.|liites(\$|\\b)', 'liitesivua', 'g'); \
+                      RegReplace('liitt\\.', 'liitteitä', 'g'); \
+                      RegReplace('[Vv]erkkokirja', 'verkkoaineisto', 'g')
+
+// Musiikin esityskokoonpanotermien avaaminen, osakenttä $m kentissä 130, 240, 600, 610, 630, 700, 710, 730, 800, 810, 830
+
+#define macro ESITYSKOKOONPANO | RegReplace('pianotrio', 'piano, viulu, sello'); \
+                                 RegReplace('pianokvartetti', 'piano, viulu, alttoviulu, sello'); \
+                                 RegReplace('pianokvintetti', 'piano, viulut (2), alttoviulu, sello'); \
+                                 RegReplace('\\bork\\.|\\bork(\$|\\b)', 'orkesteri', 'g'); \
+                                 RegReplace('jousiork\\.|jousiork(\$|\\b)', 'jousiorkesteri'); \
+                                 RegReplace('kamariork\\.|kamariork(\$|\\b)', 'orkesteri'); \
+                                 RegReplace('puhallinork\\.|puhallinork(\$|\\b)', 'puhallinorkesteri'); \
+                                 RegReplace('\\bkät\\.|\\bkät(\$|\\b)', 'kätisesti'); \
+                                 RegReplace('soitinääni', 'määrittämätön soitin'); \
+                                 RegReplace('\\bS\\s*(\\(\\d+)', 'sopraanot \\1', 'g'); \
+                                 RegReplace('\\bS\\.', 'sopraano', 'g'); \
+                                 RegReplace('\\bMz\\s*(\\(\\d+)', 'mezzosopraanot \\1', 'g'); \
+                                 RegReplace('\\bMz\\.', 'mezzosopraano', 'g'); \
+                                 RegReplace('\\bA\\s*(\\(\\d+)', 'altot \\1', 'g'); \
+                                 RegReplace('\\bA\\.', 'altto', 'g'); \
+                                 RegReplace('\\bKt\\s*(\\(\\d+)', 'kontratenorit \\1', 'g'); \
+                                 RegReplace('\\bKt\\.', 'kontratenori', 'g'); \
+                                 RegReplace('\\bT\\s*(\\(\\d+)', 'tenorit \\1', 'g'); \
+                                 RegReplace('\\bT\\.', 'tenori', 'g'); \
+                                 RegReplace('\\bBar\\s*(\\(\\d+)', 'baritonit \\1', 'g'); \
+                                 RegReplace('\\bBar\\.', 'baritoni', 'g'); \
+                                 RegReplace('\\bB\\s*(\\(\\d+)', 'bassot \\1', 'g'); \
+                                 RegReplace('\\bB\\.', 'basso', 'g'); \
+                                 If (RegFind(S, 'sovitettu, jousitrio') >= 0) Or (RegFind(S, ', jousitrio') < 0) RegReplace('jousitrio', 'viulu, alttoviulu, sello'); \
+                                 If (RegFind(S, 'sovitettu, jousikvartetti') >= 0) Or (RegFind(S, ', jousikvartetti') < 0) RegReplace('jousikvartetti', 'viulut (2), alttoviulu, sello'); \
+                                 If (RegFind(S, 'sovitettu, jousikvintetti') >= 0) Or (RegFind(S, ', jousikvintetti') < 0) RegReplace('jousikvintetti', 'viulut (2), alttoviulut (2), sello'); \
+                                 If (RegFind(S, 'sovitettu, puupuhallinkvartetti') >= 0) Or (RegFind(S, ', puupuhallinkvartetti') < 0) RegReplace('puupuhallinkvartetti', 'huilu, oboe, klarinetti, fagotti'); \
+                                 If (RegFind(S, 'sovitettu, puhallinkvintetti') >= 0) Or (RegFind(S, ', puhallinkvintetti') < 0) RegReplace('puhallinkvintetti', 'huilu, oboe, klarinetti, käyrätorvi, fagotti')
+
+#define macro TRIOT            | RegReplace('^piano, jouset', 'piano, viulu, sello'); \
+                                 RegReplace('^jouset', 'viulu, alttoviulu, sello')
+                                 
+#define macro KVARTETOT        | RegReplace('^piano, jouset', 'piano, viulu, alttoviulu, sello');\
+                                 RegReplace('^jouset', 'viulut (2), alttoviulu, sello'); \
+                                 RegReplace('^puupuhaltimet', 'huilu, oboe, klarinetti, fagotti')
+                              
+#define macro KVINTETOT        | RegReplace('^jouset', 'viulut (2), alttoviulut (2), sello'); \
+                                 RegReplace('^piano, jouset', 'piano, viulut (2), alttoviulu, sello'); \
+                                 RegReplace('^puhaltimet', 'huilu, oboe, klarinetti, käyrätorvi, fagotti')
+
+#define macro SOVITUSMERKINTO | RegReplace('sov\\.', 'sovitettu', 'g')
+
+#define macro RAAMATTU | RegReplace('\\bUT(\\b|\\.)', 'Uusi testamentti', 'g'); \
+                         RegReplace('\\bVT(\\b|\\.)', 'Vanha testamentti', 'g')
+
+
+#define macro FIKTIIVINENHAHMO | RegReplace('fikt\\.', '(fiktiivinen hahmo)', 'g'); \
+                                 RegReplace('fiktiivinen henkilö', '(fiktiivinen hahmo)', 'g')
+
+#define macro FIKTIIVINENYHTEISO | RegReplace('fikt\\.', '(fiktiivinen yhteisö)')
+
+#define macro AIKAMAAREET | RegReplace('\\bs\\.', 'syntynyt', 'g'); \
+                            RegReplace('\\bk\\.', 'kuollut', 'g'); \
+                            RegReplace('\\bn\\.', 'noin', 'g'); \
+                            RegReplace('\\bvs\\.', 'vuosisata', 'g')
+
+#define macro SIDOSASUT |  RegReplace('\\bsid\\.|\\bsid\\b', 'sidottu', 'g'); \
+                           RegReplace('\\bnid\\.|\\bnid\\b', 'nidottu', 'g'); \
+                           RegReplace('\\bvirh\\b|\\bvirh\\.', 'virheellinen', 'g'); \
+                           RegReplace('\\binb\\b|\\binb\\.', 'inbunden', 'g'); \
+                           RegReplace('\\bhft\\b|\\bhft\\.', 'häftad', 'g'); \
+                           RegReplace('\\bpbk\\b|\\bpbk\\.', 'paperback', 'g'); \
+                           RegReplace('\\bhbk\\b|\\bhbk\\.', 'hardback', 'g'); \
+                           RegReplace('\\balk\\b|\\balk\\.', 'alkaline', 'g'); \
+                           RegReplace('\\bbk\\b|\\bbk\\.', 'book', 'g'); \
+                           RegReplace('\\bverkkojulk\\b|\\bverkkojulk\\.', 'verkkoaineisto', 'g')
+
+#define macro VERKKOAINEISTO | RegReplace('paperimuodossa', 'painettuna', 'g'); \
+                               RegReplace('[Pp]aperisena', 'painettuna', 'g'); \
+                               RegReplace('Verkkokirja', '1 verkkoaineisto', 'g'); \
+                               RegReplace('[Ii]nternet-julkaisu\\b', 'verkkoaineisto', 'g'); \
+                               RegReplace('paperisena', 'painettuna', 'g'); \
+                               RegReplace('[Ee]lektroninen aineisto', 'Verkkoaineisto', 'g'); \
+                               RegReplace('erkkojulkaisu', 'erkkoaineisto'); \
+                               RegReplace('Elektroninen julkaisu|Verkkojulkaisuun', 'Linkki verkkoaineistoon')
+
+#define macro FUNKTIOVALIMERKIT | RegReplace('(\\)|[Mm]r\\.|[Mm]rs\\.|[Jj]r\\.|Ph\\.+\\s+D\\.|Dr\\.|Sr\\.|[Rr]ev\\.|\\s[A-Za-z]\\.|\\.[A-Za-z]\\.)($4|$e)', '\\1,\\2', 'g'); \
+                                  RegReplace('\\.($[e|4])', ',\\1', 'g'); \
+                                  RegReplace(',,', ',')
+                                  
+
+#define macro FUNKTIOT2 | RegReplace('(\\)|[Mm]r\\.|[Mm]rs\\.|[Jj]r\\.|Ph\\.+\\s+D\\.|Dr\\.|Sr\\.|[Rr]ev\\.|\\s[A-Za-z]\\.|\\.[A-Za-z]\\.)($4|$j)', '\\1,\\2', 'g'); \
+                          RegReplace('\\.($[j|4])', ',\\1', 'g'); \
+                          RegReplace(',,', ',')
+
+// Lisää loppupisteen kenttään, jos se ei lopu johonkin seuraavista merkeistä: ), ], ?, !, -, .
+#define macro LOPPUPISTE | If ( (RegFind('(\\)|\\]|\\?|\\!|-|\\.)\$') <0 ) ) Then S + '.' Else S
+
+#define macro VALIMERKIT | RegReplace('\\s*[:/=;\\.]?\\s*$h[^$]*( :| /| =| ;|\\.)', '\\1') // Säilyttää välimerkit
 
 #define macro Pvalimerkitys()         | If (PreviousSubIn(S, $p, '=1') = 'n') ReplaceOcc ('$p' By ',$p', '=1') Else ReplaceOcc ('$p' By '.$p', '=1'); \
                                         If (PreviousSubIn(S, $p, '=2') = 'n') ReplaceOcc ('$p' By ',$p', '=2') Else ReplaceOcc ('$p' By '.$p', '=2'); \
@@ -19,8 +223,7 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 #define macro LOPPUVALIMERKIT | Delete (':', At Ending); Delete (',', At Ending); Delete ('.', At Ending); Delete (';', At Ending)
 
-// *** 000 LEADER = NIMIĂ *** merkkipaikat 00-23
-
+// *** 000 LEADER = NIMIÖ *** merkkipaikat 00-23
 
 000             | 005             | Year+Month+Day+Hour+Minute+Second+'.0'
 000/1-5/        | 000/1-5/        | S
@@ -31,15 +234,14 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 000/7/          | 007/1-14/       | If (S = 'l') Then 'c|||||||||||||'
 000/7/          | 007/1-13/       | If (S = 'h') Then 'hu|||||||||||'
 000/8/          | 000/8/          | If (@000/7/ = 'l') Then S
-// Info: Kun 310 $a:ssa fraasi 'Päivitetään jatkuvasti' (Fennica), muutetaan kohteeksi 'i'.
-000/8/          | 000/8/          | If (S = 's' And RegFind(@310$a, '[Pp]\c3\a4ivitet\c3\a4\c3\a4n jatkuvasti') >= 0) Then 'i'
+000/8/          | 000/8/          | If (S = 's' And RegFind(@310$a, '[Pp]äivitetään jatkuvasti') >= 0) Then 'i'
 000/8/          | 006/1-18/       | If (@000/8/ = 's' And @000/7/ != 'a' And @000/7/ != 'd' And @000/7/ != 'f' And @000/7/ != 't') Then 's|||||||||||||||||'
 000/9/          | 000/9/          | ' '
 000/10/         | 000/10/         | 'a'
 000/11-12/      | 000/11-12/      | '22'
 000/13-17/      | 000/13-17/      | S
-000/18/         | 000/18/         | Table ('000-17-koodaustaso.tbl')
-000/19/         | 000/19/         | 'a'
+000/18/         | 000/18/         | '4'
+000/19/         | 000/19/         | 'i'
 000/20/         | 000/20/         | ' '
 000/21-24/      | 000/21-24/      | '4500'
 
@@ -96,29 +298,50 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 // 336- ja 337-kentät
 #if (@000/7/ = 'a' or @000/7/ = 't') And Not (Exists(@245$z))
-008/24/		| 336(new)$a	  | If (S = 'f') Then 'Teksti (kosketeltava)' Else 'Teksti'
-008/24/		| 337(new)$a	  | If (S = 'a' or S = 'b') Then 'mikromuoto'
-008/24/		| 337(new)$a	  | If (S = 'm') Then 'elektroninen'
-008/24/		| 337(new)$a	  | If (S != 'a' And S != 'b' And S != 'm') Then 'ei välittävää laitetta'
+008/24/		| 336(new)$a	  | If (S = 'f') Then 'taktiili teksti' Else 'teksti'
+008/24/         | 336(newest)$b   | If (S = 'f') Then 'tct' Else 'txt'
+008/24/         | 336(newest)$2   | 'rdacontent'
+
+008/24/         | <A37$a          | Table('008-23-337a.tbl')
+A37$a           | 337(new)$a      | S
+A37$a           | 337(newest)$b   | Table('337_b.tbl')
+A37$a           | 337(newest)$2   | 'rdamedia'
+
+008/24/         | <A38$a          | Table('008-23-338a.tbl')
+A38$a           | 338(new)$a      | S
+A38$a           | 338(newest)$b   | Table('338_b.tbl')
+A38$a           | 338(newest)$2   | 'rdacarrier'
 #endif
 
 #if (@000/7/ = 'a' or @000/7/ = 't') And (Exists(@245$z))
-245$z		| 336(new)$a	  | If (RegFind ('nite') >=0) Then 'Puhe'
-245$z		| 337(new)$a	  | If (RegFind ('nite') >=0) Then 'audio'
-245$z           | 336(new)$a      | If (RegFind ('[Nn]uottijulkaisu') >=0) Then 'Musiikki (notatoitu)'
-245$z           | 337(new)$a      | If (RegFind ('[Nn]uottijulkaisu') >=0) Then 'ei välittävää laitetta'
-245$z           | 336(new)$a      | If (RegFind ('[Vv]ideo') >=0) Then 'Kuva (liikkuva ; kaksiulotteinen)'
-245$z           | 337(new)$a      | If (RegFind ('[Vv]ideo') >=0) Then 'video'
-245$z           | 336(new)$a      | If (RegFind ('[Hh]eijastuskuva') >=0) Then 'Kuva (still)'
-245$z           | 337(new)$a      | If (RegFind ('[Hh]eijastuskuva') >=0) Then 'heijastettava'
-245$z           | 336(new)$a      | If (RegFind ('[Kk]artta-aineisto') >=0) Then 'Kuva (kartografinen)'
-245$z           | 337(new)$a      | If (RegFind ('[Kk]artta-aineisto') >=0) Then 'ei välittävää laitetta'
-245$z           | 336(new)$a      | If (RegFind ('[Mm]ikro') >=0) Then 'Teksti'
-245$z           | 337(new)$a      | If (RegFind ('[Mm]ikro') >=0) Then 'mikromuoto'
-245$z           | 336(new)$a      | If (RegFind ('[Ee]lektroninen') >=0) Then 'Teksti'
-245$z           | 337(new)$a      | If (RegFind ('[Ee]lektroninen') >=0) Then 'elektroninen'
-245$z           | 336(new)$a      | If (RegFind ('\\b[Kk]uva') >=0) Then 'Kuva (still)'
-245$z           | 337(new)$a      | If (RegFind ('\\b[Kk]uva') >=0) Then 'ei välittävää laitetta'
+//245$z		| 336(new)$a	  | If (RegFind ('nite') >=0) Then 'puhe'
+//245$z		| 337(new)$a	  | If (RegFind ('nite') >=0) Then 'audio'
+//245$z           | 336(new)$a      | If (RegFind ('[Nn]uottijulkaisu') >=0) Then 'nuottikirjoitus'
+//245$z           | 337(new)$a      | If (RegFind ('[Nn]uottijulkaisu') >=0) Then ''
+//245$z           | 336(new)$a      | If (RegFind ('[Vv]ideo') >=0) Then 'kaksiulotteinen liikkuva kuva'
+//245$z           | 337(new)$a      | If (RegFind ('[Vv]ideo') >=0) Then 'video'
+//245$z           | 336(new)$a      | If (RegFind ('[Hh]eijastuskuva') >=0) Then 'stillkuv'
+//245$z           | 337(new)$a      | If (RegFind ('[Hh]eijastuskuva') >=0) Then 'heijastettava'
+//245$z           | 336(new)$a      | If (RegFind ('[Kk]artta-aineisto') >=0) Then 'kartografinen kuva'
+//245$z           | 337(new)$a      | If (RegFind ('[Kk]artta-aineisto') >=0) Then 'käytettävissä ilman laitetta'
+//245$z           | 336(new)$a      | If (RegFind ('[Mm]ikro') >=0) Then 'teksti'
+//245$z           | 337(new)$a      | If (RegFind ('[Mm]ikro') >=0) Then 'mikromuoto'
+//245$z           | 336(new)$a      | If (RegFind ('[Ee]lektroninen') >=0) Then 'teksti'
+//245$z           | 337(new)$a      | If (RegFind ('[Ee]lektroninen') >=0) Then 'elektroninen'
+//245$z           | 336(new)$a      | If (RegFind ('\\b[Kk]uva') >=0) Then 'stillkuva'
+//245$z           | 337(new)$a      | If (RegFind ('\\b[Kk]uva') >=0) Then 'käytettävissä ilman laitetta'
+007/1/          | <A36            | Table ('007-336a.tbl')
+
+A36             | 336(new)$a      | S
+A36             | 336(newest)$b   | Table('336_b.tbl')
+A36             | 336(newest)$2   | 'rdacontent'
+
+007/1/          | <A37            | If (RegFind(@245$h, '[Mm]ultimedia') <0) Then Table('007-337a.tbl')
+
+A37             | 337(new)$a      | S
+A37             | 337(newest)$b   | Table('337_b.tbl')
+A37             | 337(newest)$2   | 'rdamedia'
+
 #endif
 
 // Moniviestin, muutos 000/06=m (BK) -> 000/06=o (VM)
@@ -153,11 +376,11 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 // 336- ja 337-kentät
 #if (000/07/ = 'm') or (RegFind(@245$z, '[Mm]oniviestin') >= 0)
-000/07/		| 336(new)$a	  | 'Useita sisältĂśtyyppejä'
-000/07/		| 337(new)$a	  | 'useita välittäviä laitteita'
+000/7/          | 336(new)$a      | 'muu'
+000/7/          | 337(new)$a      | 'muu'
 #endif
 
-// 008 (CR) CONTINUING RESOURCES = JATKUVAT JULKAISUT
+// 007 (CR) CONTINUING RESOURCES = JATKUVAT JULKAISUT
 #if (@000/7-8/ = 'ab' Or @000/7-8/ = 'as')
 008/19/         | 008/19/         | Table ('008-18-CR-ilmestymistiheys.tbl')
 008/22/         | 008/22/         | Table ('008-21-CR-tyyppi.tbl')
@@ -177,15 +400,15 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 008/24/         | 007/2/          | If ((S = 'm' Or S = 't' Or S = 's' Or S = 'i') And InTable(S, '008-23-CR-ilmiasu-to-007-01.tbl')) Then Table ('008-23-CR-ilmiasu-to-007-01.tbl')
 
 // 336- ja 337-kentät
-008/24/         | 336(new)$a      | If (S = 'a') Then 'Teksti'
+008/24/         | 336(new)$a      | If (S = 'a') Then 'teksti'
 008/24/         | 337(new)$a      | If (S = 'a') Then 'mikromuoto'
-008/24/         | 336(new)$a      | If (S = 'f') Then 'Teksti (kosketeltava)'
-008/24/         | 337(new)$a      | If (S = 'f') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'g') Then 'Kuva (still)'
-008/24/         | 337(new)$a      | If (S = 'g') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'm' Or S = 't' Or S = 's' Or S = 'i') Then 'Teksti'
+008/24/         | 336(new)$a      | If (S = 'f') Then 'taktiili teksti'
+008/24/         | 337(new)$a      | If (S = 'f') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'g') Then 'stillkuva'
+008/24/         | 337(new)$a      | If (S = 'g') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'm' Or S = 't' Or S = 's' Or S = 'i') Then 'teksti'
 008/24/         | 337(new)$a      | If (S = 'm' Or S = 't' Or S = 's' Or S = 'i') Then 'elektroninen'
-008/24/         | 336(new)$a      | If (S = 'v') Then 'Puhe' // Onko muuta mahdollisuutta?
+008/24/         | 336(new)$a      | If (S = 'v') Then 'puhe' // Onko muuta mahdollisuutta?
 008/24/         | 337(new)$a      | If (S = 'v') Then 'audio'
 
 008/25/         | 655(new)I1      | If (InTable(S, '008-24-CR-muototermi.tbl')) Then ' '
@@ -230,11 +453,11 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 008/33/         | 007/5/          | Table ('007-04-a-valmistusmateriaali.tbl')
 
 // 336- ja 337-kentät
-008/26/         | 336(new)$a      | If (S != 'd') Then 'Kuva (kartografinen)'
-008/26/         | 336(new)$a      | If (S = 'd') Then 'Esine (kartografinen)'
+008/26/         | 336(new)$a      | If (S != 'd') Then 'kartografinen kuva'
+008/26/         | 336(new)$a      | If (S = 'd') Then 'kartografinen kolmiulotteinen muoto'
 008/27/         | 337(new)$a      | If (S = 'd') or (RegFind(@300$a, '[Mm]ikrofil') >=0) or (RegFind(@300$a, '[Mm]ikrokortt') >=0) or (RegFind(@245$z, '[Mm]ikro') >=0) Then 'mikromuoto'
 008/27/         | 337(new)$a      | If (S = 'f') or (RegFind(@245$z, '[Ee]lektr') >=0) Then 'elektroninen'
-008/27/		| 337(new)$a	  | If (S != 'd' And S != 'f') And (RegFind(@245$z, '[Mm]ikro') <0) And (RegFind(@245$z, '[Ee]lektr') <0) And (RegFind(@300, '[Mm]ikro') <0) Then 'ei välittävää laitetta'
+008/27/		| 337(new)$a	  | If (S != 'd' And S != 'f') And (RegFind(@245$z, '[Mm]ikro') <0) And (RegFind(@245$z, '[Ee]lektr') <0) And (RegFind(@300, '[Mm]ikro') <0) Then 'käytettävissä ilman laitetta'
 
 #endif
 
@@ -273,7 +496,7 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 // musiikkiäänite
 #if (@000/7/ = 'j')
-000		| 336(new)$a	  | If (RegFind(@652, 'nikirja') >=0) Then 'Puhe' Else 'Musiikki (esitetty)'
+000		| 336(new)$a	  | If (RegFind(@652, 'nikirja') >=0) Then 'Puhe' Else 'esitetty musiikki'
 008/24-25/	| 337(new)$a	  | If (@008/24/ = 'm') or (@008/25/ = 'm') Then 'elektroninen' Else 'audio'
 #endif
 
@@ -285,10 +508,20 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 // nuottijulkaisu ja nuottikäsikirjoitus
 #if (@000/7/ = 'c' Or @000/7/ = 'd')
-008/24-25/      | 336(new)$a      | If (@008/24/ = 'f') Or (@008/25/ = 'f') Then 'Musiikki (notatoitu ; kosketeltava)' Else 'Musiikki (notatoitu)'
-008/24-25/      | 337(new)$a      | If (@008/24/ = 'a' or @008/24/ = 'b' Or @008/25/ = 'a' or @008/25/ = 'b') Then 'mikromuoto'
-008/24-25/      | 337(new)$a      | If (@008/24/ = 'm' Or @008/25/ = 'm') Then 'elektroninen'
-008/24-25/	| 337(new)$a	  | If Not (@008/24/ = 'm' Or @008/25/ = 'm' Or @008/24/ = 'a' or @008/24/ = 'b' Or @008/25/ = 'a' or @008/25/ = 'b') Then 'ei välittävää laitetta'
+008/24/         | 008/24/         | S
+008/24/         | 336(new)$a      | If (S != 'f') Then 'nuottikirjoitus' Else 'taktiili nuottikirjoitus'
+008/24/         | 336(newest)$b   | If (S != 'f') Then 'ntm' Else 'tcm'
+008/24/         | 336$2           | 'rdacontent'
+
+008/24/         | <B37$a          | Table ('008-23-337a.tbl')
+B37$a           | 337(new)$a      | S
+B37$a           | 337(newest)$b   | Table ('337_b.tbl')
+
+B37$a           | 337(newest)$2   | 'rdamedia'
+
+008/24/         | 338(new)$a      | 'nide'
+008/24/         | 338(newest)$b   | 'nc'
+008/24/         | 338(newest)$2   | 'rdacarrier'
 #endif
  
 
@@ -451,27 +684,27 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 
 // Esine
 #if (@000/7/ = 'r')
-000/7/		| 336(new)$a	  | 'Esine'
-000/7/		| 337(new)$a	  | 'ei välittävää laitetta'
+000/7/		| 336(new)$a	  | 'taktiili kolmiulotteinen muoto'
+000/7/		| 337(new)$a	  | 'käytettävissä ilman laitetta'
 #endif
 
 // Kuva
 #if (@000/7/ = 'k')
-000/7/		| 336(new)$a	  | 'Kuva (still)'
+000/7/		| 336(new)$a	  | 'stillkuva'
 008/24/		| 337(new)$a	  | If (S = 'c' or S = 'd') Then 'mikromuoto'
 008/24/		| 337(new)$a	  | If (S = 'm') or (RegFind(@245$z, '[Vv]erkkoaine') >=0) Then 'elektroninen'
-008/24/		| 337(new)$a	  | If (S != 'c' And S != 'd' And S = 'm') or Not (Exists(@245$z)) Then 'ei välittävää laitetta'
+008/24/		| 337(new)$a	  | If (S != 'c' And S != 'd' And S = 'm') or Not (Exists(@245$z)) Then 'käytettävissä ilman laitetta'
 #endif
 
 // Liikkuva kuva
 #if (@000/7/ = 'g') or (RegFind(@245$z, '[Vv]ideo') >= 0)
-000/7/		| 336(new)$a	  | 'Kuva (liikkuva ; kaksiulotteinen)'
+000/7/		| 336(new)$a	  | 'kaksiulotteinen liikkuva kuva'
 000/7/		| 337(new)$a	  | 'video'
 #endif
 
 // Heijastettava kuva
 #if (000/7/ = 'g' or 000/7/ = 'h' or 000/7/ = 'k' or 000/7/ = 'r') and (008/24/ = 'a' or 008/24/ = 'b') or (RegFind(@245$z, '[Hh]eijastuskuva') >= 0)
-000/7/		| 336(new)$a	  | 'Kuva (still)'
+000/7/		| 336(new)$a	  | 'stillkuva'
 000/7/		| 337(new)$a	  | 'heijastettava'
 #endif
 
@@ -494,23 +727,23 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 008/24/         | 007/2/          | If (InTable(S, '008-23-AM-ilmiasu-to-007-01.tbl')) Then Table ('008-23-AM-ilmiasu-to-007-01.tbl')
 
 // 336- ja 337-kentät
-008/24/		| 336(new)$a	  | If (S = 'a' Or S = 'b') Then 'MäärittelemätĂśn sisältĂśtyyppi'
+008/24/		| 336(new)$a	  | If (S = 'a' Or S = 'b') Then 'määrittelemätön'
 008/24/		| 337(new)$a	  | If (S = 'a' Or S = 'b') Then 'heijastettava'
-008/24/         | 336(new)$a      | If (S = 'c' Or S = 'd') Then 'MäärittelemätĂśn sisältĂśtyyppi'
+008/24/         | 336(new)$a      | If (S = 'c' Or S = 'd') Then 'määrittelemätön'
 008/24/		| 337(new)$a	  | If (S = 'c' Or S = 'd') Then 'mikromuoto'
-008/24/         | 336(new)$a      | If (S = 'f') Then 'Teksti (kosketeltava)'
-008/24/         | 337(new)$a      | If (S = 'f') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'j' Or S = 'l') Then 'Kuva (still)'
-008/24/         | 337(new)$a      | If (S = 'j' Or S = 'l') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'm' Or S = 'o') Then 'MäärittelemätĂśn sisältĂśtyyppi'
+008/24/         | 336(new)$a      | If (S = 'f') Then 'taktiili teksti'
+008/24/         | 337(new)$a      | If (S = 'f') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'j' Or S = 'l') Then 'stillkuva'
+008/24/         | 337(new)$a      | If (S = 'j' Or S = 'l') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'm' Or S = 'o') Then 'määrittelemätön'
 008/24/         | 337(new)$a      | If (S = 'm' Or S = 'o') Then 'elektroninen'
-008/24/         | 336(new)$a      | If (S = 'n') Then 'Kuva (liikkuva ; kaksiulotteinen)'
+008/24/         | 336(new)$a      | If (S = 'n') Then 'kaksiulotteinen liikkuva kuva'
 008/24/         | 337(new)$a      | If (S = 'n') Then 'video'
-008/24/         | 336(new)$a      | If (S = 'q') Then 'Kuva (kartografinen)'
-008/24/         | 337(new)$a      | If (S = 'q') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'r') Then 'Musiikki (notatoitu)'
-008/24/         | 337(new)$a      | If (S = 'r') Then 'ei välittävää laitetta'
-008/24/         | 336(new)$a      | If (S = 'v') Then 'MäärittelemätĂśn sisältĂśtyyppi'
+008/24/         | 336(new)$a      | If (S = 'q') Then 'kartografinen kuva'
+008/24/         | 337(new)$a      | If (S = 'q') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'r') Then 'nuottikirjoitus'
+008/24/         | 337(new)$a      | If (S = 'r') Then 'käytettävissä ilman laitetta'
+008/24/         | 336(new)$a      | If (S = 'v') Then 'määrittelemätön'
 008/24/         | 337(new)$a      | If (S = 'v') Then 'audio'
 #endif
 
@@ -557,38 +790,31 @@ FINMARC(98) bibliographic to MARC 21 bibliographic (RDA / hybrid)
 // 336- ja 337-kentät
 
 #if (@000/7/ = 'l')
-008/22/         | 336(new)$a      | If (S = 'a' or S = 'c') Then 'Data'
-008/22/         | 336(new)$a      | If (S = 'b' or S = 'f' or S = 'g' or S = 'j') Or (RegFind(@300, 'CD-ROM') >=0) Then 'Tietokoneohjelma'
-008/22/         | 336(new)$a      | If (S = 'd' or S = 'e') Then 'Teksti'
-008/22/         | 336(new)$a      | If (S = 'h') Then 'Ăäni'
-008/22/         | 336$a           | If (S = 'm' or S = 'i') Then 'Useita sisältĂśtyyppejä' // Sääntö korvaa mahdollisen 'CD-ROM'-fraasin perusteella luodun kentän 336$a 'Tietokoneohjelma'
-008/22/         | 336(new)$a      | If (S = 'u' or S = 'z' or S = ' ' or S = '|') And (RegFind(@300, 'CD-ROM') <0) Then 'MäärittelemätĂśn sisältĂśtyyppi'
+008/22/         | 336(new)$a      | If (S = 'a' or S = 'c') Then 'digitaalinen data'
+008/22/         | 336(new)$a      | If (S = 'b' or S = 'f' or S = 'g' or S = 'j') Or (RegFind(@300, 'CD-ROM') >=0) Then 'tietokoneohjelma'
+008/22/         | 336(new)$a      | If (S = 'd' or S = 'e') Then 'teksti'
+008/22/         | 336(new)$a      | If (S = 'h') Then 'ääni'
+008/22/         | 336$a           | If (S = 'm' or S = 'i') Then 'useita sisältötyyppejä' 
+008/22/         | 336(new)$a      | If (S = 'u' or S = 'z' or S = ' ' or S = '|') And (RegFind(@300, 'CD-ROM') <0) Then 'määrittelemätön'
 000/7/          | 337(new)$a      | 'elektroninen'
 #endif
 
 
 // *** VAIHTUVAMITTAISET KENTÄT ***
 
-
 012$a           | 015(new)$a      | S + '$2skl'
 
-// Oletuksena 014 konvertoituu kenttään 019 (Local field).
-// Jos FINUC-tunnusta ei haluta säilyttää, kommentoidaan seuraava rivi pois.
 014$a           | 019$a           | S
 
 015I1           | 015I1           | ' '
 015I2           | 015I2           | ' '
 015$a           | 015(new)$a      | S + '$2skl'
 
-021I1             | <P20I1          | ' '
-021I2             | <P20I2          | ' '
-021$a             | <P20$a          | S
-021$c             | <P20$a          | +' (' +S +')'
-021$d             | <P20$c          | S
-021$e             | <P20$c          | If Exists ($d) Then ($d+', ' + S) Else S
-021$z             | <P20$z          | S
-P20               | 020(new)        | S;
-                                      Replace ('$c' By ' :$c', Strict)
+021I1           | 020I1          | ' '
+021I2           | 020I2          | ' '
+021$a           | 020$a          | S
+021$c           | 020$q          | KAANNOKSET
+021$z           | 020$z          | S
 
 022I1           | 022I1           | If (I1=0 Or I1=1) Then S Else ' '
 022I2           | 022I2           | ' '
@@ -636,13 +862,9 @@ P20               | 020(new)        | S;
 029$a           | 024(newest)$a   | S
 029$c           | 024(newest)$a   | +' (' +S +')'
 
-//Oletuksena Allfons-numero konvertoidaan kenttään 972.  Vaihtoehtona on kenttä 024 8_.
 031I1           | 031I1           | ' '
 031I2           | 031I2           | ' '
 031             | 972             | S
-//031I1           | 024I1            | '8'
-//031I2           | 024I2            | ' '
-//031             | 024              | S
 
 033I1           | 033I1           | '0'
 033I2           | 033I2           | ' '
@@ -673,8 +895,16 @@ P20               | 020(new)        | S;
 
 039             | 039             | S
 
-040$a           | 040$a           | KirjastotunnusISILiksi
-040$b           | 040$d           | KirjastotunnusISILiksi
+040I1           | 040I1           | ' '
+040I2           | 040I2           | ' '
+040$c           | 040$a           | S
+040$b           | 040$b           | 'mul'
+
+#if (Not Exists(@040$b))
+000             | 040$b           | 'mul'
+#endif
+
+040   | 040    | Sort('abed')
 
 
 041I1           | 041I1           | If (I1=' ') Then '0' Else S
@@ -768,27 +998,6 @@ D41$h           | 041$h           | Table('041-kielikoodit.tbl'); Replace ('$x' 
 
 079             | 090(new)        | S
 
-//2) Hyllyluokitukset konvertoidaan sijaintikenttään 852 $h. 
-// Osakenttään $a tulee kirjaston ISIL-tunnus. Tässä esimerkkejä Piki-tietokannasta:
-
-//053$a      	| 852(new)$a       | 'Fi-Hamkun'
-//053$a      	| 852(newest)$h    | S
-
-//054$a      	| 852(new)$a       | 'Fi-Kang'
-//054$a      	| 852(newest)$h    | S
-
-//055$a      	| 852(new)$a       | 'Fi-Lemp'
-//055$a      	| 852(newest)$h    | S
-
-//056$a      	| 852(new)$a       | 'Fi-Pirkka'
-//056$a      	| 852(newest)$h    | S
-
-//058$a      	| 852(new)$a       | 'Fi-Ylo'
-//058$a      	| 852(newest)$h    | S
-
-//059$a      	| 852(new)$a       | 'Fi-Vesil'
-//059$a      	| 852(newest)$h    | S
-
 080$a           | 080(new)$a      | S;
                                     Replace ('(' By '$x(');
                                     Replace ('-' By '$x-');
@@ -852,7 +1061,7 @@ AAE             | 084(newest)     | S + '$2ykl'
 100$h           | <E00$a          | + ', '+S; RegReplace('\\s*\\([^\\.]{2,} [^\\.]{2,}\\)\$', '')
 100$f           | <E00$c          | S
 100$c           | <E00$d          | S
-100$x           | <E00$e          | S; RegReplace('^\\((.*)\\)\$', '\\1')
+100$x           | <E00$e          | Table ('Funktiotermit.tbl'); RegReplace('^\\((.*)\\)\$', '\\1')
 E00             | 100             | S;
                                     MoveBefore ('d', $e);
                                     MoveBefore ('c', $d);
@@ -870,7 +1079,7 @@ E00             | 100             | S;
 110$k           | <E10$d          | '(' + S + ')'
 110$j           | <E10$c          | '(' + S + ')'
 110$f           | <E10$a          | + ' (' + S + ')'
-110$x           | <E10$e          | S; RegReplace('^\\((.*)\\)\$', '\\1')
+110$x           | <E10$e          | Table ('Funktiotermit.tbl'); RegReplace('^\\((.*)\\)\$', '\\1')
 E10             | 110             | If (((RegFind('.*\\$(.)') < 0) Or (RegMatch(1) != '4')) And RegFind('\\.\$') < 0 And RegFind('\\)\$') < 0) Then S + '.' Else S;
                                     Replace ('$b' By '.$b');
                                     Replace (')$d(' By ' :$d', Strict);
@@ -1202,7 +1411,7 @@ E60             | 260             | If (RegFind('[)\\.\\-\\]]\$') < 0) Then S + 
 300$a           | <F30$a          | If (Not Exists ($z)) Then S
 300$z           | <F30$a          | S
 300$a           | <F30$a          | + If (Exists ($z) And (RegFind('^\\(.*\\)\$') >= 0)) Then ' ' + S Else If (Exists ($z)) Then ' (' + S + ')'
-300$b           | <F30$b          | S
+300$b           | <F30$b          | KAANNOKSET
 300$c           | <F30$c          | S
 300$d           | <F30$e          | S
 F30             | 300             | If (RegFind('[\\)\\.]\$') < 0) Then S + '.' Else S;
@@ -1210,7 +1419,8 @@ F30             | 300             | If (RegFind('[\\)\\.]\$') < 0) Then S + '.' 
                                     Replace ('$b' By ' :$b', Strict);
                                     Replace ('$c' By ' ;$c', Strict);
                                     ReplaceOcc ('$e' By ', ','>1', Strict);
-                                    Replace ('$e' By ' +$e', Strict)
+                                    Replace ('$e' By ' +$e', Strict); \
+                                    300AE
 
 306I1           | 306I1           | ' '
 306I2           | 306I2           | ' '   
@@ -2013,14 +2223,14 @@ L46             | 246(newest)     | S; Replace ('$n' By ' : $b', Strict);
 773I1           | <L73$7          | If (Not Exists(@773$7)) Then 'nn'
 
 773$w           | <L73$w          | S; RegReplace('\\s*\\(\\s*\\)\\s*', '')
-773$a           | <L73$a          | S
+773$a           | <L73$a          | S; RegReplace('esitt\\.', 'esittäjä')
 773$s           | <L73$s          | '[' + S + ']'
 773$t           | <L73$t          | S
 773$c           | <L73$t          | + ' (' + S + ')'
 773(1)$i        | <L73$h          | If (RegFind('^\\[.*\\]\$') >= 0) Then S Else '[' + S + ']'
 773$b           | <L73$b          | S
 773$e           | <L73$m          | S
-773$d           | <L73$d          | S
+773$d           | <L73$d          | S; RegReplace('S\\.\\s*[Ll]\\.', 'Kustannuspaikka tuntematon')
 773$j           | <L73$m(no)      | S
 773$k           | <L73$k          | S
 773$u           | <L73$u          | S
@@ -2143,6 +2353,11 @@ M30             | 830             | If (RegFind('\\.\$') < 0) Then S + '.' Else 
                                     Replace ('$v' By ' ; $v', Strict);
                                     Replace ('$x' By ',$x', Strict)
 
+
+852I1      | 852I1         | S
+852I2      | 852I2         | S
+852        | 852           | S
+
 856I1           | 856(new)I1      | S
 856I2           | 856(newest)I2   | ' '
 856             | 856(newest)     | S; Replace (' base target=_blank ' By '');
@@ -2190,6 +2405,10 @@ M30             | 830             | If (RegFind('\\.\$') < 0) Then S + '.' Else 
 911$f      | 911$g         | S
 911$t      | 911$t         | S
 911$y      | 911$y         | S
+
+942I1      | 942I1         | S
+942I2      | 942I2         | S
+942        | 942           | S
 
 945I1      | 940I1         | If (I1=0 Or I1=' ') Then ' ' Else S 
 945I2      | 940I2         | If (I2=0 Or I1=' ') Then '0' Else S 
