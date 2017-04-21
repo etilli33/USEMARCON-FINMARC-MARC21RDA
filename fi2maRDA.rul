@@ -1,5 +1,5 @@
 FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
-8.2.2017 / Kansalliskirjasto (TV)
+10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 21.4.2017 (TV)
 
 #define version 317
 
@@ -306,7 +306,10 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 A37$a           | 337(new)$a      | S
 A37$a           | 337(newest)$b   | Table('337_b.tbl')
 A37$a           | 337(newest)$2   | 'rdamedia'
+#endif
 
+// Tallennetyyppikenttää 338 ei luoda osakohdetietueisiin
+#if (@000/7/ = 'a' or @000/7/ = 't') And (Not Exists(@245$z)) And (Not Exists(@773))
 008/24/         | <A38$a          | Table('008-23-338a.tbl')
 A38$a           | 338(new)$a      | S
 A38$a           | 338(newest)$b   | Table('338_b.tbl')
@@ -518,7 +521,10 @@ B37$a           | 337(new)$a      | S
 B37$a           | 337(newest)$b   | Table ('337_b.tbl')
 
 B37$a           | 337(newest)$2   | 'rdamedia'
+#endif
 
+// Tallennetyyppikenttää 338 ei luoda osakohteisiin
+#if (@000/7/ = 'c' Or @000/7/ = 'd' And (Not Exists(@773)))
 008/24/         | 338(new)$a      | 'nide'
 008/24/         | 338(newest)$b   | 'nc'
 008/24/         | 338(newest)$2   | 'rdacarrier'
