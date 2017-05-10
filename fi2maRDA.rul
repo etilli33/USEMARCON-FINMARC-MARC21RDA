@@ -1,5 +1,5 @@
 FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
-10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 21.4.2017 (TV)
+10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 10.5.2017 (TV)
 
 #define version 317
 
@@ -45,6 +45,7 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
                            RegReplace('\\bpbk[^A-Za-z]+|\\bpbk\\.', 'nidottu', 'g'); \
                            RegReplace('\\bhbk[^A-Za-z]+|\\bhbk\\.|\\binb[^A-Za-z]+|\\binb\\.|\\bsid\\.|\\bSID\\.', 'sidottu', 'g'); \
                            RegReplace('\\bverkkojulk\\b|\\bverkkojulk\\.|electronic bk\\.', 'verkkoaineisto', 'g'); \
+                           RegReplace('erkkojulkaisu', 'erkkoaineisto', 'g'); \
                            RegReplace('kuv\\.|KUV\\.', 'kuvitettu', 'g'); \
                            RegReplace('IMPR\\b', 'impr', 'g'); \
                            RegReplace('mv\\.', 'mustavalkoinen', 'g'); \
@@ -72,6 +73,7 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
                            RegReplace('liitt\\.', 'liitteitä', 'g'); \
                            RegReplace('[Vv]erkkokirja', 'verkkoaineisto', 'g')
 
+#define macro KIELIKOODIT | Lower(S); \ RegReplace('\\bfi\\b', 'fin'); \ RegReplace('\\bse\\b', 'swe'); \ RegReplace('\\bgb\\b', 'eng')
 
 #define macro 300AE | RegReplace('\\b[Nn]\\.', 'noin', 'g'); \
                       RegReplace('(\\d+) s\\.', '\\1 sivua', 'g'); \
@@ -820,7 +822,7 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 021I2           | 020I2          | ' '
 021$a           | 020$a          | S
 021$c           | 020$q          | KAANNOKSET
-021$z           | 020$z          | S
+021$z           | 020$z          | S; Delete ('(virh.)', At Ending)
 
 022I1           | 022I1           | If (I1=0 Or I1=1) Then S Else ' '
 022I2           | 022I2           | ' '
@@ -863,10 +865,10 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 028$c           | 028(newest)$a   | S; If (Exists(@028$d)) S + ' (' + @028$d + ')'
 #endif
 
-029I1           | 024(new)I1      | '3'
-029I2           | 024(newest)I2   | ' '
+// EAN-koodi
+029$a           | 024(new)I1      | '3'
+029$a           | 024(newest)I2   | ' '
 029$a           | 024(newest)$a   | S
-029$c           | 024(newest)$a   | +' (' +S +')'
 
 031I1           | 031I1           | ' '
 031I2           | 031I2           | ' '
@@ -903,13 +905,7 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 
 040I1           | 040I1           | ' '
 040I2           | 040I2           | ' '
-040$c           | 040$a           | S
-040$b           | 040$b           | 'mul'
-
-#if (Not Exists(@040$b))
-000             | 040$b           | 'mul'
-#endif
-
+040             | 040             | S
 040   | 040    | Sort('abed')
 
 
@@ -920,11 +916,11 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 041$a           | <D41$d(no)      | Sto(0); RegFind('^(.{1,3})'); RegMatch(1); Redo; Mem(0); From(4)
 041$b           | <D41$b(no)      | Sto(0); RegFind('^(.{1,3})'); RegMatch(1); Redo; Mem(0); From(4)
 041$c           | <D41$h(no)      | Sto(0); RegFind('^(.{1,3})'); RegMatch(1); Redo; Mem(0); From(4)
-D41$a           | 041$a           | If (Not (@000/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v'))) Then S; Table('041-kielikoodit.tbl'); Replace ('$x' By '$a')
-D41$d           | 041$d           | If (@000(1)/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v')) Then S; Table('041-kielikoodit.tbl'); Replace ('$x' By '$d')
-D41$b           | 041$b           | If (@000(1)/7/ != 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$b')
-D41$b           | 041$j           | If (@000(1)/7/ = 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$j')
-D41$h           | 041$h           | Table('041-kielikoodit.tbl'); Replace ('$x' By '$h')
+D41$a           | 041$a           | If (Not (@000/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v'))) Then KIELIKOODIT; Table('041-kielikoodit.tbl'); Replace ('$x' By '$a')
+D41$d           | 041$d           | If (@000(1)/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v')) Then KIELIKOODIT; Table('041-kielikoodit.tbl'); Replace ('$x' By '$d')
+D41$b           | 041$b           | If (@000(1)/7/ != 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$b'); KIELIKOODIT
+D41$b           | 041$j           | If (@000(1)/7/ = 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$j'); KIELIKOODIT
+D41$h           | 041$h           | Table('041-kielikoodit.tbl'); Replace ('$x' By '$h'); KIELIKOODIT
 
 044I1           | 049I1           | ' '
 044I2           | 049I2           | ' '
@@ -1633,9 +1629,9 @@ M09             | 509             | S;
 510I2           | 510I2           | ' '
 510             | 510             | S; Replace('$c' By ',$c')
 
-511I1           | 511I1           | '0'
-511I2           | 511I2           | ' '
-511             | 511             | If (RegFind('\\.\$') < 0) Then S + '.' Else S
+511$a           | 511(new)I1      | '0'
+511$a           | 511(newest)I2   | ' '
+511$a           | 511(newest)$a   | If (RegFind('\\.\$') < 0) Then S + '.' Else S
 
 519I1           | 520I1           | ' '
 519I2           | 520I2           | ' '
@@ -1655,7 +1651,7 @@ M09             | 509             | S;
 
 529I1           | 530I1           | ' '
 529I2           | 530I2           | ' '
-529$a           | 530$a           | If (RegFind('\\.\$') < 0) Then S + '.' Else S
+529$a           | 530$a           | KAANNOKSET; If (RegFind('\\.\$') < 0) Then S + '.' Else S
 
 530I1           | 588I1           | ' '
 530I2           | 588I2           | ' '
@@ -1733,7 +1729,7 @@ J30             | 830	          | If (RegFind('[\\)\\.\\]]\$') < 0) Then S + '.'
 
 548I1           | 538I1           | ' '
 548I2           | 538I2           | ' '
-548$a           | 538$a           | If (RegFind('\\.\$') < 0) Then S + '.' Else S
+548$a           | 538(n)$a        | If (RegFind('\\.\$') < 0) Then S + '.' Else S
 
 
 550$a           | 720(new)$a      | S
