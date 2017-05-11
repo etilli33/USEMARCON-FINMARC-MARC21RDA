@@ -1,5 +1,5 @@
 FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
-10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 10.5.2017 (TV)
+10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 11.5.2017 (TV)
 
 #define version 317
 
@@ -1142,7 +1142,7 @@ E11             | 111             | If (((RegFind('.*\\$(.)') < 0) Or (RegMatch(
 240$u           | <E40$o          | S
 240$l           | <E40$l          | S
 240$p           | <E40$k          | If (RegFind('[Vv]alikoima') >= 0) Then 'Valikoima'
-E40             | 130             | If (Not Exists(@1??)) Then S;
+E40             | 130             | RAAMATTU; If (Not Exists(@1??)) Then S;
                                     Replace ('$m' By ',$m');
                                     Replace ('$r' By ',$r');
                                     Pvalimerkitys();
@@ -1158,7 +1158,7 @@ E40             | 130             | If (Not Exists(@1??)) Then S;
 
 
 // Info: 240:stĺ tehdään 240, jos inputissa on 1XX-kenttä.
-E40             | 240             | If (Exists(@1??)) Then S;
+E40             | 240             | RAAMATTU; If (Exists(@1??)) Then S;
                                     Replace ('$m' By ',$m');
                                     Replace ('$r' By ',$r');
                                     Pvalimerkitys();
