@@ -1,5 +1,5 @@
 FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi) - HELLE-kirjastojen haara
-10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 11.5.2017 (TV)
+10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 12.5.2017 (TV)
 
 #define version 317
 
@@ -913,7 +913,6 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 040             | 040             | S
 040   | 040    | Sort('abed')
 
-
 #if (RegFind(@041, 'non') < 0)
 041I1           | 041I1           | If (I1=' ') Then '0' Else S
 041I2           | 041I2           | ' '
@@ -1030,45 +1029,12 @@ AAF             | 084(new)        | S + '$2kssb'
                                     Replace ('"' By '$x"');
                                     Replace ('*' By '$x*')
 
-082I1           | 082I1           | '1'
-082I2           | 082I2           | ' '
-082$a           | 082$a           | S
-
-083I1           | 050I1           | ' '
-083I2           | 050I2           | '0'
-083$a           | 050$a           | S
-
-085$a           | 080(new)$a      | S;
-                                    Replace ('(' By '$x(');
-                                    Replace ('-' By '$x-');
-                                    Replace ('=' By '$x=');
-                                    Replace ('"' By '$x"');
-                                    Replace ('*' By '$x*')
-
-090             | 060(new)I1      | ' '
-090             | 060(newest)I2   | '0'
-090             | 060(newest)     | S
-
-092$a           | <AAA(new)$a(nt) | S
-AAA             | 084(new)        | S + '$2msc'
-
-093$a           | <AAB(new)$a(nt) | S
-AAB             | 084(new)        | S + '$2acmccs'
-
-094$a           | <AAC(new)$a(nt) | S
-AAC             | 084(new)        | S + '$2gfdc'
-
-095$a           | <AAD(new)$a(nt) | S
-AAD             | 084(new)        | S + '$2rubbk'
-
 098$a           | <AAE(new)I1     | If (I1 = '1') Then '9' Else ' '
 098$a           | <AAE(newest)I2  | I2
 098$a           | <AAE(newest)$a(nt) | S
 AAEI1           | 084(new)I1      | S
 AAEI2           | 084(newest)I2   | S
 AAE             | 084(newest)     | S + '$2ykl'
-//Info: 098-kenttä hyllyluokituksena voidaan lisäksi konvertoida sijaintikenttään 852 $h.  Osakenttään $a konvertoidaan kirjaston ISIL-tunnus.
-
 
 100I1           | 100I1           | If (I1=1 Or I1=2) Then '1' Else S
 100I2           | 100I2           | ' '
@@ -1770,21 +1736,19 @@ J87             | 787             | S;
 566             | 590(new)        | S
 
 567             | 590(new)        | S
+567             | 590(newest)$5   | 'FI-Helle'
 
 568             | 590(new)        | S
+568             | 590(newest)$5   | 'FI-Helle'
 
 569             | 590(new)        | S
+569             | 590(newest)$5   | 'FI-Helle'
 
 570             | 590(new)        | S
 
-571             | 971(new)I1      | ' '
-571             | 971(newest)I2   | ' '
-571             | 971(newest)     | S
-571$u           | 856(new)I1      | '4'
-571$u           | 856(newest)I2   | '2'
-571$u           | 856(newest)$u   | S
-571$x           | 856(newest)$q   | S; Replace('Kuvaus' By 'TEXT') ; Replace('Kansikuva' By 'IMAGE')
-571$x           | 856(newest)$z   | S
+571I1           | 571I1           | S
+571I2           | 571I2           | S
+571             | 571             | S
 
 572             | 590(new)        | S
 
@@ -1832,7 +1796,8 @@ J87             | 787             | S;
 
 594             | 594(new)        | S
 
-595             | 595(new)        | S
+595             | 590(new)        | S
+595             | 590(newest)$5   | 'FI-Helle'
 
 600I1           | 600I1           | If (S = '1' Or S = '2') Then '1'
                                     Else If (S = ' ' And Exists(@600(1)$h)) Then '1'
@@ -2143,24 +2108,23 @@ L11             | 711             | If (RegFind('.*\\$(.)') < 0) Then S + '.' El
 //745-info: konversio ei voi mennä kokonaan oikein, 745-kentässä on monenlaisia
 //nimekelisäkirjauksia (MARC 21: 240, 246 + eri indikaattoreita, 740)
 //Vaihtoehto 1: 246 = Muut nimekkeet, esim. rinnakkaisnimekkeet, osannimekkeet
-745$a           | <L46(new)I1     | '3'
-745$a           | <L46(newest)I2  | ' '   //Tyyppiä ei määritelty
-745$a           | <L46(newest)$a  | S
-745$b           | <L46(newest)$b  | S
-745$n           | <L46(newest)$A  | S
-745$d           | <L46(newest)$B  | S
-L46I1           | 246(new)I1      | S
-L46I2           | 246(newest)I2   | S
-L46             | 246(newest)     | S; Replace ('$n' By ' : $b', Strict);
-                                    Replace ('$A' By ' / ', Strict);
-                                    Replace ('$B' By ' / ', Strict)
+//745$a           | <L46(new)I1     | '3'
+//745$a           | <L46(newest)I2  | ' '   //Tyyppiä ei määritelty
+//745$a           | <L46(newest)$a  | S
+//745$b           | <L46(newest)$b  | S
+//745$n           | <L46(newest)$A  | S
+//745$d           | <L46(newest)$B  | S
+//L46I1           | 246(new)I1      | S
+//L46I2           | 246(newest)I2   | S
+//L46             | 246(newest)     | S; Replace ('$n' By ' : $b', Strict); Replace ('$A' By ' / ', Strict); Replace ('$B' By ' / ', Strict)
+
 //Vaihtoehto 2: 740 = Analyyttinen nimekekirjaus, sopii nuottikokoelmille tai
 //kokoomateoksille, joiden sisällöstä tehty 745-kentät
-//745I1           | 740I2           | ' '
-//745I2           | 740I1           | If (I2=' ') Then '0' Else S
-//745             | 740             | If (RegFind('\\.\$') < 0) Then S + '.' Else S;
-//                                      Replace ('$n' By ' / ', Strict);
-//                                      Replace ('$d' By ' / ', Strict)
+745I1           | 740I2           | ' '
+745I2           | 740I1           | If (I2=' ') Then '0' Else S
+745$a           | 740(n)$a        | If (RegFind('\\.\$') < 0) Then S + '.' Else S;
+                                    Replace ('$n' By ' / ', Strict);
+                                    Replace ('$d' By ' / ', Strict)
 
 759I1           | 765I1           | '0'
 759I2           | 765I2           | ' '
