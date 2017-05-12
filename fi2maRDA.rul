@@ -1,4 +1,4 @@
-FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
+FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi) - HELLE-kirjastojen haara
 10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 11.5.2017 (TV)
 
 #define version 317
@@ -807,6 +807,11 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 000/7/          | 337(new)$a      | 'elektroninen'
 #endif
 
+// Helle-erikoisuus: kielikoodi 'non' merkkaakin 'ei kielellistä aineistoa' pro 'muinaisnorja'
+
+#if (RegFind(@041, 'non') >= 0)
+041             | 008/36-38/      | 'zxx'
+#endif
 
 // *** VAIHTUVAMITTAISET KENTÄT ***
 
@@ -814,9 +819,9 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 
 014$a           | 019$a           | S
 
-015I1           | 015I1           | ' '
-015I2           | 015I2           | ' '
-015$a           | 015(new)$a      | S + '$2skl'
+015I1           | 024I1           | '0'
+015I2           | 024I2           | ' '
+015$a           | 024(new)$a      | S
 
 021I1           | 020I1          | ' '
 021I2           | 020I2          | ' '
@@ -870,8 +875,8 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 029$a           | 024(newest)I2   | ' '
 029$a           | 024(newest)$a   | S
 
-031I1           | 031I1           | ' '
-031I2           | 031I2           | ' '
+031I1           | 972I1           | ' '
+031I2           | 972I2           | ' '
 031             | 972             | S
 
 033I1           | 033I1           | '0'
@@ -909,6 +914,7 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 040   | 040    | Sort('abed')
 
 
+#if (RegFind(@041, 'non') < 0)
 041I1           | 041I1           | If (I1=' ') Then '0' Else S
 041I2           | 041I2           | ' '
 041$a/1-3/(n=1) | 008/36-38/      | If (n=1) Then Table ('041-kielikoodit.tbl') 
@@ -918,14 +924,21 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 041$c           | <D41$h(no)      | Sto(0); RegFind('^(.{1,3})'); RegMatch(1); Redo; Mem(0); From(4)
 D41$a           | 041$a           | If (Not (@000/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v'))) Then KIELIKOODIT; Table('041-kielikoodit.tbl'); Replace ('$x' By '$a')
 D41$d           | 041$d           | If (@000(1)/7/ = 'i' Or @000/7/ = 'j' Or (@000/7/ = 'a' And @008/24/ = 'v')) Then KIELIKOODIT; Table('041-kielikoodit.tbl'); Replace ('$x' By '$d')
-D41$b           | 041$b           | If (@000(1)/7/ != 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$b'); KIELIKOODIT
+D41$a           | 041$b           | If (S = 'swe') Then 'swe' Else 'fin'
 D41$b           | 041$j           | If (@000(1)/7/ = 'g') Then Table('041-kielikoodit.tbl'); Replace ('$x' By '$j'); KIELIKOODIT
 D41$h           | 041$h           | Table('041-kielikoodit.tbl'); Replace ('$x' By '$h'); KIELIKOODIT
+#endif
 
 044I1           | 049I1           | ' '
 044I2           | 049I2           | ' '
 044             | 049             | S; Replace ('$c' By ' ;$c', Strict);
                                        Replace ('$d' By ' ;$d', Strict)
+#if (Exists(@044(n)$c))
+044I1           | 521I1           | ' '
+044I2           | 521I2           | ' '
+044$c           | 521$a           | S
+#endif
+
 044$a           | 007/18-23/      | If (%007(1)/01/='m' Or %007(2)/01/='m' Or %007(3)/01/='m') Then S
 
 045(1)I1        | 045I1           | If ((Not Exists(@045$a)) And (Not Exists(@045$b))) Then ' ' Else S
@@ -1715,13 +1728,6 @@ J30             | 830	          | If (RegFind('[\\)\\.\\]]\$') < 0) Then S + '.'
                                     Replace ('$x' By ',$x', Strict)
 #endif
 
-541I1           | 541I1           | ' '
-541I2           | 541I2           | ' '
-541             | 541             | If (RegFind('\\.\$') < 0) Then S + '.' Else S;
-                                    Replace ('$b' By ';$b');
-                                    Replace ('$c' By ';$c');
-                                    Replace ('$d' By ';$d')
-
 545I1           | 545I1           | ' '
 545I2           | 545I2           | ' '
 545$a           | 545$a           | If (RegFind('\\.\$') < 0) Then S + '.' Else S
@@ -1760,7 +1766,6 @@ J87             | 787             | S;
 
 //Info: Kirjastokohtaiset huomautuskentät konvertoidaan: 565-589->590, kentät 590-599 säilyvät samoina.
 //Tietokantakohtaisesti kenttiä voi konvertoida toisinkin, riippuu huomautuksen sisällöstä.
-565             | 590(new)        | S
 
 566             | 590(new)        | S
 
@@ -1828,14 +1833,6 @@ J87             | 787             | S;
 594             | 594(new)        | S
 
 595             | 595(new)        | S
-
-596             | 596(new)        | S
-
-597             | 597(new)        | S
-
-598             | 598(new)        | S
-
-599             | 599(new)        | S
 
 600I1           | 600I1           | If (S = '1' Or S = '2') Then '1'
                                     Else If (S = ' ' And Exists(@600(1)$h)) Then '1'
@@ -1926,17 +1923,6 @@ K30             | 630             | S;
                                     RegReplaceTable('pieni-isoksi-osakentan-alussa.tbl');
                                     MoveBefore('l', $o, 'l', '', '', ',|;|.');
                                     If (RegFind('[\\)\\.]\$') < 0) S + '.'
-
-650             | 650(new)I1      | ' '
-650             | 650(newest)I2   | '0'
-650             | 650(newest)     | S
-
-652             | 650(new)I1      | ' '
-652             | 650(newest)I2   | '7'
-652             | 650(newest)     | S; Replace('$b' By '$x');
-                                       Replace ('$y' By '$A');
-                                       Replace('$z' By '$y');
-                                       Replace('$A' By '$z') + '$2ysa'
 
 653             | 650(new)I1      | ' '
 653             | 650(newest)I2   | '7'
@@ -2077,13 +2063,6 @@ G81             | 650(newest)     | S + '$2sao'
 697             | 653(new)I1      | ' '
 697             | 653(newest)I2   | ' '
 697             | 653(newest)     | S; Replace ('$b' By '$a');
-                                       Replace ('$x' By '$a');
-                                       Replace ('$z' By '$a');
-                                       Replace ('$y' By '$a')
-
-698             | 653(new)I1      | ' '
-698             | 653(newest)I2   | ' '
-698             | 653(newest)     | S; Replace ('$b' By '$a');
                                        Replace ('$x' By '$a');
                                        Replace ('$z' By '$a');
                                        Replace ('$y' By '$a')
@@ -2355,11 +2334,6 @@ M30             | 830             | If (RegFind('\\.\$') < 0) Then S + '.' Else 
                                     Replace ('$v' By ' ; $v', Strict);
                                     Replace ('$x' By ',$x', Strict)
 
-
-852I1      | 852I1         | S
-852I2      | 852I2         | S
-852        | 852           | S
-
 856I1           | 856(new)I1      | S
 856I2           | 856(newest)I2   | ' '
 856             | 856(newest)     | S; Replace (' base target=_blank ' By '');
@@ -2419,90 +2393,6 @@ M30             | 830             | If (RegFind('\\.\$') < 0) Then S + '.' Else 
 
 
 // *** SIJOITUSPAIKKATIEDOT 950-969, 971, 991-992 ***
-
-950$a           | 852(new)$a      | KirjastotunnusISILiksi
-950$b           | 852(newest)$b   | S
-950$c           | 852(newest)$c   | S
-950$h           | 852(newest)$i   | S
-950$x           | 852(newest)$x   | S
-
-951$a           | 852(new)$a      | KirjastotunnusISILiksi
-951$b           | 852(newest)$b   | S
-951$c           | 852(newest)$c   | S
-
-952$a           | 852(new)$a      | KirjastotunnusISILiksi
-952$b           | 852(newest)$b   | S
-952$c           | 852(newest)$c   | S
-
-953$a           | 852(new)$a      | KirjastotunnusISILiksi
-953$b           | 852(newest)$b   | S
-953$c           | 852(newest)$c   | S
-
-954$a           | 852(new)$a      | KirjastotunnusISILiksi
-954$b           | 852(newest)$b   | S
-954$c           | 852(newest)$c   | S
-
-955$a           | 852(new)$a      | KirjastotunnusISILiksi
-955$b           | 852(newest)$b   | S
-955$c           | 852(newest)$c   | S
-955$d(1)        | 852(newest)$t   | S
-
-956$a           | 852(new)$a      | KirjastotunnusISILiksi
-956$b           | 852(newest)$b   | S
-956$c           | 852(newest)$c   | S
-956$d(1)        | 852(newest)$t   | S
-
-957$a           | 852(new)$a      | KirjastotunnusISILiksi
-957$b           | 852(newest)$b   | S
-957$c           | 852(newest)$c   | S
-
-958$a           | 852(new)$a      | KirjastotunnusISILiksi
-958$b           | 852(newest)$b   | S
-958$c           | 852(newest)$c   | S
-
-959$a           | 852(new)$a      | KirjastotunnusISILiksi
-959$b           | 852(newest)$b   | S
-959$c           | 852(newest)$c   | S
-
-960$a           | 852(new)$a      | KirjastotunnusISILiksi
-960$b           | 852(newest)$b   | S
-960$c           | 852(newest)$c   | S
-
-961$a           | 852(new)$a      | KirjastotunnusISILiksi
-961$b           | 852(newest)$b   | S
-961$c           | 852(newest)$c   | S
-
-962$a           | 852(new)$a      | KirjastotunnusISILiksi
-962$b           | 852(newest)$b   | S
-962$c           | 852(newest)$c   | S
-
-963$a           | 852(new)$a      | KirjastotunnusISILiksi
-963$b           | 852(newest)$b   | S
-963$c           | 852(newest)$c   | S
-
-964$a           | 852(new)$a      | KirjastotunnusISILiksi
-964$b           | 852(newest)$b   | S
-964$c           | 852(newest)$c   | S
-
-965$a           | 852(new)$a      | KirjastotunnusISILiksi
-965$b           | 852(newest)$b   | S
-965$c           | 852(newest)$c   | S
-
-966$a           | 852(new)$a      | KirjastotunnusISILiksi
-966$b           | 852(newest)$b   | S
-966$c           | 852(newest)$c   | S
-
-967$a           | 852(new)$a      | KirjastotunnusISILiksi
-967$b           | 852(newest)$b   | S
-967$c           | 852(newest)$c   | S
-
-968$a           | 852(new)$a      | KirjastotunnusISILiksi
-968$b           | 852(newest)$b   | S
-968$c           | 852(newest)$c   | S
-
-969$a           | 852(new)$a      | KirjastotunnusISILiksi
-969$b           | 852(newest)$b   | S
-969$c           | 852(newest)$c   | S
 
 980$a           | 852(new)$a      | KirjastotunnusISILiksi
 980$b           | 852(newest)$b   | S
