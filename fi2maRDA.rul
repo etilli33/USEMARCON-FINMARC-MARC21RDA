@@ -1,5 +1,5 @@
 FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi) - HELLE-kirjastojen haara
-10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 17.5.2017 (TV)
+10.2.2017 / Kansalliskirjasto (TV) / Päivitetty 18.5.2017 (TV)
 
 #define version 317
 
@@ -965,28 +965,34 @@ D41             | 041             | Sort('abdefghjkmn')
 
 // Eli tässä tulee Helle-kimpan kuntakohtaisia luokituksia
 053             | 090(new)        | S
-053I1           | 852I1           | ' '
-053I2           | 852I2           | ' '
-053(1)$a        | 852$a           | 'FI-Asko'
-053(1)$a        | 852$h           | S
+053I1           | 852(new)I1      | ' '
+053I2           | 852(newest)I2   | ' '
+053(1)$a        | 852(newest)$a   | 'FI-Asko'
+053(1)$a        | 852(newest)$h   | S
 
 054             | 090(new)        | S
-054I1           | 852I1           | ' '
-054I2           | 852I2           | ' '
-054(1)$a        | 852$a           | 'FI-Porna'
-054(1)$a        | 852$h           | S
+054I1           | 852(new)I1      | ' '
+054I2           | 852(newest)I2   | ' '
+054(1)$a        | 852(newest)$a   | 'FI-Porna'
+054(1)$a        | 852(newest)$h   | S
 
 055             | 090(new)        | S
-055I1           | 852I1           | ' '
-055I2           | 852I2           | ' '
-055(1)$a        | 852$a           | 'FI-Pom'
-055(1)$a        | 852$h           | S
+055I1           | 852(new)I1      | ' '
+055I2           | 852(newest)I2   | ' '
+055(1)$a        | 852(newest)$a   | 'FI-Pom'
+055(1)$a        | 852(newest)$h   | S
+
+#if (RegFind(@055$a, '8[24]\\.21') >= 0)
+055I1           | 084I1           | ' '
+055I2           | 084I2           | ' '
+055$a           | 084$a           | S
+#endif
 
 056             | 090(new)        | S
-056I1           | 852I1           | ' '
-056I2           | 852I2           | ' '
-056(1)$a        | 852$a           | 'FI-Sipoo'
-056(1)$a        | 852$h           | S
+056I1           | 852(new)I1      | ' '
+056I2           | 852(newest)I2   | ' '
+056(1)$a        | 852(newest)$a   | 'FI-Sipoo'
+056(1)$a        | 852(newest)$h   | S
 
 057             | 090(new)        | S
 
