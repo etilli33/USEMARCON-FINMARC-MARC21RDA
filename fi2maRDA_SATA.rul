@@ -1199,7 +1199,7 @@ E11             | 111             | If (((RegFind('.*\\$(.)') < 0) Or (RegMatch(
 240$u           | <E40$o          | S
 240$l           | <E40$l          | S
 240$p           | <E40$k          | If (RegFind('[Vv]alikoima') >= 0) Then 'Valikoima'
-E40             | 130             | If (Not Exists(@1??)) Then S;
+E40             | 130             | RAAMATTU; If (Not Exists(@1??)) Then S;
                                     Replace ('$m' By ',$m');
                                     Replace ('$r' By ',$r');
                                     Pvalimerkitys();
@@ -1215,7 +1215,7 @@ E40             | 130             | If (Not Exists(@1??)) Then S;
 
 
 // Info: 240:stĺ tehdään 240, jos inputissa on 1XX-kenttä.
-E40             | 240             | If (Exists(@1??)) Then S;
+E40             | 240             | RAAMATTU; If (Exists(@1??)) Then S;
                                     Replace ('$m' By ',$m');
                                     Replace ('$r' By ',$r');
                                     Pvalimerkitys();
@@ -1902,7 +1902,7 @@ J87             | 787             | S;
 600I2           | 600I2           | '4'
 600$a           | <K00$a          | S
 600$h           | <K00$a          | + ', '+S
-600$f           | <K00$c          | S
+600$f           | <K00$c          | S; RegReplace('fikt\\.', 'fiktiivinen henkilÃ¶')
 600$c           | <K00$d          | S
 600$t           | <K00$t          | S
 600$x           | <K00$x          | S
