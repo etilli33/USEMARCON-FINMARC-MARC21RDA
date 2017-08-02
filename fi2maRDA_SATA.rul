@@ -235,6 +235,8 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 000/7/          | 000/7/          | If (S = 'l' And @008/22/ != 'd') Then 'm'
 000/7/          | 007/1-14/       | If (S = 'l') Then 'c|||||||||||||'
 000/7/          | 007/1-13/       | If (S = 'h') Then 'hu|||||||||||'
+// Moniviestin, joka on tehty kirjasta, sisältää usein 000/6/ = a, pitäisi muuttaa 
+000/7/			| 000/7/		  | If (S = 'a' And RegFind(@245$z, '[Mm]oniviestin') >= 0 ) Then 'o'
 000/8/          | 000/8/          | If (@000/7/ = 'l') Then S
 000/8/          | 000/8/          | If (S = 's' And RegFind(@310$a, '[Pp]äivitetään jatkuvasti') >= 0) Then 'i'
 000/8/          | 006/1-18/       | If (@000/8/ = 's' And @000/7/ != 'a' And @000/7/ != 'd' And @000/7/ != 'f' And @000/7/ != 't') Then 's|||||||||||||||||'
@@ -260,6 +262,11 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 
 008/1-6/        | 008/1-6/        | S
 008/7/          | 008/7/          | If (S = 'x') Then 'u' Else S
+
+//  008 Use year of 260$c if empty
+#if (@008/8-11/ = '    ') And (Exists (@260$c))
+260$c | 008/8-11/ | S ; RegReplace('\\D*', '') //D on ei-numerot
+#endif
 008/8-11/       | 008/8-11/       | S; Replace (' ' By 'u')
 008/12-15/      | 008/12-15/      | If (@008/7/ = 's') Then '    ' Else If (@008/7/ = 'x') Then 'uuuu' Else S
 008/16-18/      | 008/16-18/      | Table ('008-15-maakoodit.tbl')
@@ -822,11 +829,14 @@ B37$a           | 337(newest)$2   | 'rdamedia'
 021I2           | 020I2          | ' '
 021$a           | 020$a          | S
 021$c           | 020$q          | KAANNOKSET
+021$d			| <DEL			 | S
+021$e			| <DEL			 | S
 021$z           | 020$z          | S; Delete ('(virh.)', At Ending)
 
 022I1           | 022I1           | If (I1=0 Or I1=1) Then S Else ' '
 022I2           | 022I2           | ' '
-022             | 022             | S
+022$a           | 022$a           | S
+022$d			| <DEL			  | S
 
 024I1           | 024I1           | '0'
 024I2           | 024I2           | ' '
@@ -946,95 +956,142 @@ D41$h           | 041$h           | Table('041-kielikoodit.tbl'); Replace ('$x' 
 //Info: 1)  Kirjastokohtaiset luokitukset konvertoidaan 09-alkuisiin kenttiin.
 //2) Kirjastokohtaiset luokitukset ovat hyllyluokituksia, jolloin ne konvertoidaan sijaintikenttään 852.
 //1) Kaikki konvertoitu 090-kenttään:
-053             | 090(new)        | S
+//053             | 090(new)        | S
+//2) Hyllyluokitukset konvertoidaan sijaintikenttään 852 $h. 
+// Osakenttään $a tulee kirjaston ISIL-tunnus. 
+053$a      	| 852(new)$a       | 'FI-Eura'
+053$a      	| 852(newest)$h    | S 
 
-054             | 090(new)        | S
+054$a      	| 852(new)$a       | 'FI-Harja'
+054$a      	| 852(newest)$h    | S 
 
-055             | 090(new)        | S
+055$a      	| 852(new)$a       | 'FI-Honka'
+055$a      	| 852(newest)$h    | S 
 
-056             | 090(new)        | S
+056$a      	| 852(new)$a       | 'FI-Hutti'
+056$a      	| 852(newest)$h    | S
+057$a      	| 852(new)$a       | 'FI-Jamja'
+057$a      	| 852(newest)$h    | S
 
-057             | 090(new)        | S
+058$a      	| 852(new)$a       | 'FI-Kanka'
+058$a      	| 852(newest)$h    | S
 
-058             | 090(new)        | S
+059$a      	| 852(new)$a       | 'FI-Karvi'
+059$a      	| 852(newest)$h    | S
 
-059             | 090(new)        | S
+060$a      	| <DEL 			   | S
+061$a      	| 852(new)$a       | 'FI-Kokma'
+061$a      	| 852(newest)$h    | S
 
-060             | 090(new)        | S
+062$a      	| <DEL	    | S
+063$a      	| 852(new)$a       | 'FI-Pm'
+063$a      	| 852(newest)$h    | S
 
-061             | 090(new)        | S
+064$a      	| 852(new)$a       | 'FI-Luvia'
+064$a      	| 852(newest)$h    | S
 
-062             | 090(new)        | S
+065$a      	| 852(new)$a       | 'FI-Merka'
+065$a      	| 852(newest)$h    | S
 
-063             | 090(new)        | S
+066$a      	| <DEL	    | S
 
-064             | 090(new)        | S
+067$a      	| 852(new)$a       | 'FI-Nakki'
+067$a      	| 852(newest)$h    | S
 
-065             | 090(new)        | S
+068$a      	| <DEL	    | S
 
-066             | 090(new)        | S
+069$a      	| 852(new)$a       | 'FI-Pomru'
+069$a      	| 852(newest)$h    | S
 
-067             | 090(new)        | S
+070$a      	| 852(new)$a       | If (n=1) Then 'FI-Pm'
+070$a      	| 852(newest)$h    | If (n=1) Then S
 
-068             | 090(new)        | S
+071$a      	| 852(new)$a       | 'FI-Rauma'
+071$a      	| 852(newest)$h    | S
 
-069             | 090(new)        | S
+072$a      	| 852(new)$a       | 'FI-Siksu'
+072$a      	| 852(newest)$h    | S
 
-070             | 090(new)        | S
+073$a      	| 852(new)$a       | 'FI-Ulvi'
+073$a      	| 852(newest)$h    | S
 
-071             | 090(new)        | S
+074$a      	| <DEL	    | S
 
-072             | 090(new)        | S
+075$a      	| 852(new)$a       | 'FI-Satakm'
+075$a      	| 852(newest)$h    | S
 
-073             | 090(new)        | S
+076$a      	| 852(new)$a       | 'FI-Saklu'
+076$a      	| 852(newest)$h    | S
 
-074             | 090(new)        | S
+077$a      	| 852(new)$a       | 'FI-Eurjo'
+077$a      	| 852(newest)$h    | S
 
-075             | 090(new)        | S
+078$a      	| 852(new)$a       | 'FI-Saklu'
+078$a      	| 852(newest)$h    | S
+//Satakirjastojen lisäluokat myös YKL-lisäluokiksi
+//Uusi Z79-kenttä varmistaa, että se konvertoidaan 098-kentän jälkeen.
+//Tarkista, kopioidaanko myös $070 ja vertaa, onko tupla
 
-076             | 090(new)        | S
+//#if Not (  (@098)!=(@070)  And (((@079)=(@070)) ))
+//#if Not (( (Not Exists (@098)) And ((@079)=(@070))) Or ((@098)=(@079)))
+#if Not  ( ((@079)=(@070)) Or ((@098)=(@079)) )
+079$a           | <Z79(new)I1     | If (I1 = '1') Then '9' Else ' '
+079$a           | <Z79(newest)I2  | I2
+079$a           | <Z79(newest)$a(nt) | S
+Z79I1           | 084(new)I1      | S
+Z79I2           | 084(newest)I2   | S
+Z79             | 084(newest)     | S + '$2ykl'
+#endif
 
-077             | 090(new)        | S
+//Kirjastokohtaiset luokat myös YKL-luokaksi, jos sitä ei ole
+#if ((@098)!=(@070))
+070(1)$a           | <A70(new)I1     | If (I1 = '1') Then '9' Else ' '
+070(1)$a           | <A70(newest)I2  | I2
+070(1)$a           | <A70(newest)$a(nt) | S
+A70I1           | 084(new)I1      | S
+A70I2           | 084(newest)I2   | S
+A70             | 084(newest)     | S + '$2ykl'
+#endif
 
-078             | 090(new)        | S
+#if ((Not Exists(@098)) And (@070)!=(@071) )
+071(1)$a           | <A71(new)I1     | If (I1 = '1') Then '9' Else ' '
+071(1)$a           | <A71(newest)I2  | I2
+071(1)$a           | <A71(newest)$a(nt) | S
+A71I1           | 084(new)I1      | S
+A71I2           | 084(newest)I2   | S
+A71             | 084(newest)     | S + '$2ykl'
+#endif
 
-079             | 090(new)        | S
+#if ((Not Exists(@071)) And (Not Exists(@098)) And (Not Exists(@070)))
+05?(1) | 084(new) | S + '$2ykl'
+#endif
 
-080$a           | 080(new)$a      | S;
-                                    Replace ('(' By '$x(');
-                                    Replace ('-' By '$x-');
-                                    Replace ('=' By '$x=');
-                                    Replace ('"' By '$x"');
-                                    Replace ('*' By '$x*')
+#if ((Not Exists(@071)) And (Not Exists(@098)) And (Not Exists(@070)) And (Not Exists (@05?)))
+06?(1) | 084(new) | S + '$2ykl'
+#endif
 
-081$a           | <AAF(new)$a(nt) | S
-AAF             | 084(new)        | S + '$2kssb'
+#if ((Not Exists(@071)) And (Not Exists(@098)) And (Not Exists(@070)) And (Not Exists (@05?)) And (Not Exists (@06?)) And (Not Exists (@079)))
+07?(1) | 084(new) | S + '$2ykl'
+#endif
 
-085$a           | 080(new)$a      | S;
-                                    Replace ('(' By '$x(');
-                                    Replace ('-' By '$x-');
-                                    Replace ('=' By '$x=');
-                                    Replace ('"' By '$x"');
-                                    Replace ('*' By '$x*')
+080           | <DEL     | S;
 
-082I1           | 082I1           | '1'
-082I2           | 082I2           | ' '
-082$a           | 082$a           | S
+081           | <DEL | S
 
-083I1           | 050I1           | ' '
-083I2           | 050I2           | '0'
-083$a           | 050$a           | S
+085          | <DEL     | S;
 
-085$a           | 080(new)$a      | S;
-                                    Replace ('(' By '$x(');
-                                    Replace ('-' By '$x-');
-                                    Replace ('=' By '$x=');
-                                    Replace ('"' By '$x"');
-                                    Replace ('*' By '$x*')
 
-090             | 060(new)I1      | ' '
-090             | 060(newest)I2   | '0'
-090             | 060(newest)     | S
+
+082         | <DEL           | S
+
+
+083           | <DEL           | S
+
+085           | <DEL      | S;
+
+
+090             | <DEL      | ' '
+
 
 092$a           | <AAA(new)$a(nt) | S
 AAA             | 084(new)        | S + '$2msc'
@@ -1756,7 +1813,8 @@ J87             | 787             | S;
 
 561$a           | 561$a           | If (RegFind('\\.\$') < 0) Then S + '.' Else S
 
-563$a           | 583$a           | If (RegFind('\\.\$') < 0) Then S + '.' Else S
+563$a	| <DEL	  | If (RegFind('BTJ') >= 0) Then S
+563$a	| 583(new)$a      | If (Not (RegFind('BTJ') >= 0)) Then S + '.'  
 
 //Info: Kirjastokohtaiset huomautuskentät konvertoidaan: 565-589->590, kentät 590-599 säilyvät samoina.
 //Tietokantakohtaisesti kenttiä voi konvertoida toisinkin, riippuu huomautuksen sisällöstä.
