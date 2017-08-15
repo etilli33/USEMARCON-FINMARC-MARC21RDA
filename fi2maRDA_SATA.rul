@@ -1639,9 +1639,9 @@ I00$a           | 500(new)$a      | If (RegFind('\\.\$') < 0) Then S + '.' Else 
 
 502I1           | <M02I1           | ' '
 502I2           | <M02I2           | ' '
-502$a           | <M02$a           | S
-502$b           | <M02$c           | S + ' : '
-502$c           | <M02$c           | + S
+502$a           | <M02$a           | Upper(To(1)) + From(2)
+502$b           | <M02$c           | Upper(To(1)) + From(2) + ' : '
+502$c           | <M02$c           | + Upper(To(1)) + From(2)
 502$d           | <M02$d           | S
 M02             | 502              | S;
                                     MoveLast('9');
@@ -1659,10 +1659,11 @@ M02             | 502              | S;
 505I2           | 505I2           | ' '
 505             | 505             | If (RegFind('\\.\$') < 0) Then S + '.' Else S
 
-506I1           | 520I1           | ' '
-506I2           | 520I2           | ' '
-506             | 520             | If (RegFind('.*$(\\w)') >= 0 And (RegMatch(1) != 'u') And (RegFind('\\.\$') < 0)) Then S + '.' Else S;
-                                    Replace ('$b' By ': ', Strict')
+506I1           | <M06I1          | ' '
+506I2           | <M06I2          | ' '
+506$a           | <M06$a          | Upper(To(1)) + From(2) + ': '
+506$b			| <M06$a          |  + Upper(To(1)) + From(2)
+M06             | 520             | If (RegFind('.*$(\\w)') >= 0 And (RegMatch(1) != 'u') And (RegFind('\\.\$') < 0)) Then S + '.' Else S 
 
 507I1           | 506I1           | ' '
 507I2           | 506I2           | ' '
