@@ -225,6 +225,11 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 
 #define macro LOPPUVALIMERKIT | Delete (':', At Ending); Delete (',', At Ending); Delete ('.', At Ending); Delete (';', At Ending)
 
+// Väitöskirjahuomautus
+#define macro DISS | RegReplace('[Dd]iss(\\.)?', 'Dissertation', 'g'); \
+					RegReplace('[Vv]äitösk(\\.)?|[Vv]([a-zöäå])*sk\\.', 'Väitöskirja', 'g')
+					 
+
 // *** 000 LEADER = NIMIÖ *** merkkipaikat 00-23
 
 000             | 005             | Year+Month+Day+Hour+Minute+Second+'.0'
@@ -1639,7 +1644,8 @@ I00$a           | 500(new)$a      | If (RegFind('\\.\$') < 0) Then S + '.' Else 
 
 502I1           | <M02I1           | ' '
 502I2           | <M02I2           | ' '
-502$a           | <M02$a           | Upper(To(1)) + From(2)
+502$a           | <M02$a           | Upper(To(1)) + From(2);
+                                     DISS 
 502$b           | <M02$c           | Upper(To(1)) + From(2) + ' : '
 502$c           | <M02$c           | + Upper(To(1)) + From(2)
 502$d           | <M02$d           | S
@@ -1647,7 +1653,8 @@ M02             | 502              | S;
                                     MoveLast('9');
                                     Replace ('$c' By ' :$c', Strict);
                                     Replace ('$d' By ',$d', Strict);
-                                    If (RegFind('\\.\$') < 0) Then S + '.' Else S
+                                    If (RegFind('\\.\$') < 0) Then S + '.' Else S;
+									
 
 504I1           | 504I1           | ' '
 504I2           | 504I2           | ' '
@@ -1673,9 +1680,9 @@ M06             | 520             | If (RegFind('.*$(\\w)') >= 0 And (RegMatch(1
 
 509I1           | <M09I1          | ' '
 509I2           | <M09I2          | ' '
-509$a           | <M09$a          | S
-509$b           | <M09$c          | S
-509$c           | <M09$c          | + ', ' + S
+509$a           | <M09$a          | Upper(To(1)) + From(2)
+509$b           | <M09$c          | Upper(To(1)) + From(2)
+509$c           | <M09$c          |  + ', ' + Upper(To(1)) + From(2)
 509$d           | <M09$d          | S
 M09             | 509             | S;
                                     MoveLast('9');
@@ -1903,7 +1910,7 @@ J87             | 787             | S;
 600I2           | 600I2           | '4'
 600$a           | <K00$a          | S
 600$h           | <K00$a          | + ', '+S
-600$f           | <K00$c          | S; RegReplace('fikt\\.', 'fiktiivinen henkilÃ¶')
+600$f           | <K00$c          | S; RegReplace('fikt\\.', 'fiktiivinen henkilö')
 600$c           | <K00$d          | S
 600$t           | <K00$t          | S
 600$x           | <K00$x          | S
