@@ -2170,7 +2170,7 @@ G81             | 650(newest)     | S + '$2sao'
 700$f           | <L00$c          | S
 700$c           | <L00$d          | S
 700$t           | <L00$t          | S
-700$x           | <L00$e          | S; RegReplace('^\\((.*)\\)\$', '\\1')
+700$x           | <L00$e          | Table ('Funktiotermit.tbl'); RegReplace('^\\((.*)\\)\$', '\\1')
 L00I1           | 700(new)I1      | S
 L00I2           | 700(newest)I2   | S
 L00             | 700(newest)     | S;
@@ -2196,7 +2196,7 @@ L00             | 700(newest)     | S;
 710$f           | <L10$a          | If ($f Precedes $t Or (Not Exists($t))) Then + ' (' + S + ')'
 710$f           | <L10$g          | If ($t Precedes $f) Then ' (' + S + ')'
 710$t           | <L10$t          | S
-710$x           | <L10$e          | S; RegReplace('^\\((.*)\\)\$', '\\1')
+710$x           | <L10$e          | Table ('Funktiotermit.tbl'); RegReplace('^\\((.*)\\)\$', '\\1')
 L10             | 710             | If (((RegFind('.*\\$(.)') < 0) Or (RegMatch(1) != '4')) And RegFind('\\.\$') < 0 And RegFind('\\)\$') < 0) Then S + '.' Else S;
                                     Replace ('$b' By '.$b');
                                     Replace (')$d(' By ' :$d', Strict);
