@@ -226,8 +226,9 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 #define macro LOPPUVALIMERKIT | Delete (':', At Ending); Delete (',', At Ending); Delete ('.', At Ending); Delete (';', At Ending)
 
 // Väitöskirjahuomautus
-#define macro DISS | RegReplace('[Dd]iss(\\.)?', 'Dissertation', 'g'); \
-					RegReplace('[Vv]äitösk(\\.)?|[Vv]([a-zöäå])*sk\\.', 'Väitöskirja', 'g')
+#define macro DISS | RegReplace('[Dd]iss(\\.)?', 'Väitöskirja', 'g'); \
+					RegReplace('[Vv]äitösk(\\.)?|[Vv]([a-zöäå])*sk\\.', 'Väitöskirja', 'g'); \
+					RegReplace('Akad\\. avh.', 'Akademisk avhandling', 'g')
 					 
 
 // *** 000 LEADER = NIMIÖ *** merkkipaikat 00-23
@@ -269,7 +270,7 @@ FINMARC(98) bibliographic --> MARC 21 (RDA / hybridi)
 008/7/          | 008/7/          | If (S = 'x') Then 'u' Else S
 
 //  008 Use year of 260$c if empty
-#if (@008/8-11/ = '    ') And (Exists (@260$c))
+#if (@008/8-11/ = '    ')  And (Exists (@260$c))
 260$c | 008/8-11/ | S ; RegReplace('\\D*', '') //D on ei-numerot
 #endif
 008/8-11/       | 008/8-11/       | S; Replace (' ' By 'u')
@@ -1653,7 +1654,7 @@ M02             | 502              | S;
                                     MoveLast('9');
                                     Replace ('$c' By ' :$c', Strict);
                                     Replace ('$d' By ',$d', Strict);
-                                    If (RegFind('\\.\$') < 0) Then S + '.' Else S;
+                                    If (RegFind('\\.\$') < 0) Then S + '.' Else S
 									
 
 504I1           | 504I1           | ' '
