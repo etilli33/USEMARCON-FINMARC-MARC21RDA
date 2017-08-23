@@ -2148,19 +2148,10 @@ G81             | 650(newest)     | S + '$2sao'
                                        Replace ('$z' By '$a');
                                        Replace ('$y' By '$a')
 
-698             | 653(new)I1      | ' '
-698             | 653(newest)I2   | ' '
-698             | 653(newest)     | S; Replace ('$b' By '$a');
-                                       Replace ('$x' By '$a');
-                                       Replace ('$z' By '$a');
-                                       Replace ('$y' By '$a')
 
-699             | 653(new)I1      | ' '
-699             | 653(newest)I2   | ' '
-699             | 653(newest)     | S; Replace ('$b' By '$a');
-                                       Replace ('$x' By '$a');
-                                       Replace ('$z' By '$a');
-                                       Replace ('$y' By '$a')
+698             | <DEL     | S 
+
+699             | <DEL     | S 
 
 700I1           | <L00I1          | If (S = '1' Or S = '2') Then '1'
                                     Else If (S = ' ' And Exists(@700(1)$h)) Then '1'
@@ -2493,132 +2484,46 @@ M30             | 830             | If (RegFind('\\.\$') < 0) Then S + '.' Else 
 950$h           | 852(newest)$i   | S
 950$x           | 852(newest)$x   | S
 
-951$a           | 852(new)$a      | KirjastotunnusISILiksi
-951$b           | 852(newest)$b   | S
-951$c           | 852(newest)$c   | S
+951           | <DEL     | S
+952           | <DEL     | S
+953           | <DEL     | S
+954           | <DEL     | S
+955           | <DEL     | S
+956           | <DEL     | S
+957           | <DEL     | S
+958           | <DEL     | S
+959           | <DEL     | S
+960           | <DEL     | S
+961           | <DEL     | S
+962           | <DEL     | S
+963           | <DEL     | S
+964           | <DEL     | S
+965           | <DEL     | S
+966           | <DEL     | S
+967           | <DEL     | S
+698           | <DEL     | S
+969           | <DEL     | S
+980           | <DEL     | S
+981           | <DEL     | S
+986           | <DEL     | S
+987           | <DEL     | S
+988           | <DEL     | S
 
-952$a           | 852(new)$a      | KirjastotunnusISILiksi
-952$b           | 852(newest)$b   | S
-952$c           | 852(newest)$c   | S
 
-953$a           | 852(new)$a      | KirjastotunnusISILiksi
-953$b           | 852(newest)$b   | S
-953$c           | 852(newest)$c   | S
 
-954$a           | 852(new)$a      | KirjastotunnusISILiksi
-954$b           | 852(newest)$b   | S
-954$c           | 852(newest)$c   | S
 
-955$a           | 852(new)$a      | KirjastotunnusISILiksi
-955$b           | 852(newest)$b   | S
-955$c           | 852(newest)$c   | S
-955$d(1)        | 852(newest)$t   | S
 
-956$a           | 852(new)$a      | KirjastotunnusISILiksi
-956$b           | 852(newest)$b   | S
-956$c           | 852(newest)$c   | S
-956$d(1)        | 852(newest)$t   | S
 
-957$a           | 852(new)$a      | KirjastotunnusISILiksi
-957$b           | 852(newest)$b   | S
-957$c           | 852(newest)$c   | S
-
-958$a           | 852(new)$a      | KirjastotunnusISILiksi
-958$b           | 852(newest)$b   | S
-958$c           | 852(newest)$c   | S
-
-959$a           | 852(new)$a      | KirjastotunnusISILiksi
-959$b           | 852(newest)$b   | S
-959$c           | 852(newest)$c   | S
-
-960$a           | 852(new)$a      | KirjastotunnusISILiksi
-960$b           | 852(newest)$b   | S
-960$c           | 852(newest)$c   | S
-
-961$a           | 852(new)$a      | KirjastotunnusISILiksi
-961$b           | 852(newest)$b   | S
-961$c           | 852(newest)$c   | S
-
-962$a           | 852(new)$a      | KirjastotunnusISILiksi
-962$b           | 852(newest)$b   | S
-962$c           | 852(newest)$c   | S
-
-963$a           | 852(new)$a      | KirjastotunnusISILiksi
-963$b           | 852(newest)$b   | S
-963$c           | 852(newest)$c   | S
-
-964$a           | 852(new)$a      | KirjastotunnusISILiksi
-964$b           | 852(newest)$b   | S
-964$c           | 852(newest)$c   | S
-
-965$a           | 852(new)$a      | KirjastotunnusISILiksi
-965$b           | 852(newest)$b   | S
-965$c           | 852(newest)$c   | S
-
-966$a           | 852(new)$a      | KirjastotunnusISILiksi
-966$b           | 852(newest)$b   | S
-966$c           | 852(newest)$c   | S
-
-967$a           | 852(new)$a      | KirjastotunnusISILiksi
-967$b           | 852(newest)$b   | S
-967$c           | 852(newest)$c   | S
-
-968$a           | 852(new)$a      | KirjastotunnusISILiksi
-968$b           | 852(newest)$b   | S
-968$c           | 852(newest)$c   | S
-
-969$a           | 852(new)$a      | KirjastotunnusISILiksi
-969$b           | 852(newest)$b   | S
-969$c           | 852(newest)$c   | S
-
-980$a           | 852(new)$a      | KirjastotunnusISILiksi
-980$b           | 852(newest)$b   | S
-980$c           | 852(newest)$c   | S
-
-981$a           | 852(new)$a      | KirjastotunnusISILiksi
-981$b           | 852(newest)$b   | S
-981$c           | 852(newest)$c   | S
-
-986$a           | 852(new)$a      | KirjastotunnusISILiksi
-986$b           | 852(newest)$b   | S
-986$c           | 852(newest)$c   | S
-
-987$a           | 852(new)$a      | KirjastotunnusISILiksi
-987$b           | 852(newest)$b   | S
-987$c           | 852(newest)$c   | S
-
-988$a           | 852(new)$a      | KirjastotunnusISILiksi
-988$b           | 852(newest)$b   | S
-988$c           | 852(newest)$c   | S
 
 990$a           | 852(new)$a      | KirjastotunnusISILiksi
 990$b           | 852(newest)$b   | S
 990$c           | 852(newest)$c   | S
 
-991$a           | 852(new)$a      | KirjastotunnusISILiksi
-991$b           | 852(newest)$b   | S
-991$c           | 852(newest)$c   | S
+991           | <DEL     | S
+992           | <DEL     | S
+995           | <DEL     | S
+996           | <DEL     | S
+997           | <DEL     | S
+998           | <DEL     | S
+999           | <DEL     | S
 
-992$a           | 852(new)$a      | KirjastotunnusISILiksi
-992$b           | 852(newest)$b   | S
-992$c           | 852(newest)$c   | S
-
-995$a           | <N55(1)$a       | S; RegReplace('\\s+', '$a', 'g')
-N55$a           | 850(1)$a(1)     | KirjastotunnusISILiksi;
-                                    If (D = '') Then S Else D + '$a' + S
-
-996$a           | <N56(1)$a       | S; RegReplace('\\s+', '$a', 'g')
-N56$a           | 850(1)$a(1)     | KirjastotunnusISILiksi;
-                                    If (D = '') Then S Else D + '$a' + S
-
-//Tässä kentässä joissain kirjastoissa (mm. Kemi, Vaski) YLE-koodi.
-997             | 907             | S
-//997$a           | <N57(1)$a       | S; RegReplace('\\s+', '$a', 'g')
-//N57$a           | 850(1)$a(1)     | KirjastotunnusISILiksi;
-//                                    If (D = '') Then S Else D + '$a' + S
-
-998$a           | <N58(new)$a     | S; RegReplace('\\s+', '$a', 'g')
-N58$a           | 850(1)$a(1)     | KirjastotunnusISILiksi;
-                                    If (D = '') Then S Else D + '$a' + S
-
-999             | 999             | S
